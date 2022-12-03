@@ -1,4 +1,5 @@
 import Computer from '../models/Computer.js'
+import Lab from '../models/Lab.js'
 import {uploadImage, deleteImage} from '../libs/cloudinary.js'
 import QRCode from 'qrcode'
 import { v4 } from 'uuid'
@@ -38,6 +39,7 @@ export const createComputer = async(req, res) => {
         }
         const newComputer = new Computer({code, image, lab, type, brand, serie, model, processor, memory, disk, graphic, system})
         await newComputer.save()
+        const updateLab = await Lab.updateOne({name:lab}, { $inc: {quantity: 1} })
         const computer2 = await Computer.findOne({
             'image.public_id': image.public_id
         })

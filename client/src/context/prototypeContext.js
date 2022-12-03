@@ -1,8 +1,11 @@
 import {useState, createContext, useContext, useEffect} from 'react'
+import toast, { Toaster } from 'react-hot-toast'
+
 import { createComputerRequest, deleteComputerRequest, getComputerRequest, getComputersRequest, updateComputerRequest } from '../api/computers'
 import { createLabRequest, deleteLabRequest, getLabRequest, getLabsRequest, updateLabRequest } from '../api/labs'
 import { getUsersRequest, createUserRequest, deleteUserRequest, getUserRequest, updateUserRequest } from '../api/users'
 
+const notify = (msj) => toast(msj)
 
 const protoContext = createContext()
 
@@ -27,6 +30,7 @@ export const ProtoProvider = ({children}) => {
             setUsers([...users, res.data])
         } else {
             console.log('No seas pendejo, ya existe la categoria')
+            notify('Ya existe la categoria')
         }
     }
 
@@ -93,8 +97,9 @@ export const ProtoProvider = ({children}) => {
         if(!existe){
             const res = await createComputerRequest(computer)
             setComputers([...computers, res.data])
+            await getLabs()
         } else {
-            console.log('No seas pendejo, ya existe la computadora')
+            notify('Ya existe la computadora')
         }
 
         //const lab = labs.find(el =>el.name === computer.lab)

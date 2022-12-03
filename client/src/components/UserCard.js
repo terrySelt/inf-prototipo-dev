@@ -28,7 +28,7 @@ export function UserCard({user}) {
   }
   return (
       <div className='card-user'>
-        {user.image && <div className='img-div-user'><img src={user.image.url} /></div>}
+        {user.image && <div className='img-div-user'><img src={user.image.url} alt='joder' /></div>}
         <div className='content-user'>
           <div className='name-user'>
             <h2>{user.name}</h2>
