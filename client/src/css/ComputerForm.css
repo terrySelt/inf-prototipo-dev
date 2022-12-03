@@ -1,0 +1,89 @@
+.container-form-computer2{
+    background-color: var(--black--m);
+    padding: 30px;
+    width: 280px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.header-form-computer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+}
+
+.header-form-computer h3{
+    font-size: var(--md);
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+
+
+.form-computer-regresar{
+    font-size: var(--sm);
+    color: #cbd5e0;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.form-computer{
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.label-form-computer{
+    font-size: var(--sm);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.form-computer input{
+    height: 30px;
+    margin-bottom: 12px;
+    background: var(--text--input--field);
+    border-radius: 4px;
+}
+
+
+.errormessage-computer{
+    font-size: var(--sm);
+    color: rgb(220 38 38);
+    margin-top: 0;
+}
+
+.select-form-computer{
+    height: 35px;
+    background: var(--text--input--field);
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.btn-guardar-computer{
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: var(--sm);
+    font-weight: 500;
+    background: var(--black--l);
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.btn-guardar-computer-icon {
+    animation: btn-guardar-computer-icon  1s linear infinite;
+}
+
+@keyframes btn-guardar-computer-icon{
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

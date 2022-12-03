@@ -1,0 +1,45 @@
+:root {
+    /*Paleta de colores claros*/
+    --white--l: #ffffff;
+    --dark--gray--l: #746f6b;
+    --light--gray--l: #c6c2b9;
+    --text--input--field: #f5f3f4;
+    --text--input--field2: #f7f7f7;
+    --black--l: #030708;
+
+    /*paleta de colores oscuro*/
+    --white--d: #f8f8f8;
+    --black--d: #080808;
+    --light--gray--d: #6a6a6a;
+    --dark--gray--d: #393939;
+
+
+    /*Paleta de colores de Manjaro*/
+    --green--m: #34be5b;
+    --black--m: #111111;
+    --light--gray--m: #8c8c8c;
+    --white--m: #fcfefd;
+    --dark--gray--m: #444444; 
+
+    --sm: 14px;
+    --md: 16px;
+    --lg: 18px;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 62.5%;
+    font-family: 'Quicksand', sans-serif;
+    background: var(--black--d);
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}

@@ -1,0 +1,199 @@
+.btn-new-user{
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: var(--md);
+    font-weight: 500;
+    background: var(--dark--gray--d);
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    text-decoration: none;
+}
+
+.container2-user{
+    display: flex;
+    gap: 10px;
+    overflow-x: scroll;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    padding-top: 20px;
+    width: 100%;
+    height: auto;
+    padding-top: 60px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.container2-user::-webkit-scrollbar{
+    background: transparent;
+}
+
+.card-user{
+    position: relative;
+    scroll-snap-align: center;
+    width: 200px;
+    min-width: 200px;
+    height: 170px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
+    transition: 0.5s;
+}
+
+.card-user:hover{
+    height: 315px;
+}
+
+.img-div-user{
+    position: absolute;
+    left: 50%;
+    top: -30px;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+    transform: 0.5s;
+}
+
+.card-user:hover .img-div-user{
+    width: 150px;
+    height: 150px;
+}
+
+.img-div-user img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content-user{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    overflow: hidden;
+}
+
+.name-user{
+    width: 100%;
+    text-align: center;
+    transition: 0.5s;
+    transform: translateY(145px);
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-user:hover .content-user .name-user{
+    transform: translateY(0px);
+}
+
+.name-user h2{
+    font-size: var(--md);
+    font-weight: 700;
+    color: #555;
+}
+
+.data-user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: var(--sm);
+    visibility: hidden;
+}
+
+.data-user p{
+    margin: 6px;
+}
+
+.card-user:hover .content-user .data-user{
+    visibility: visible;
+}
+
+.action-btn-user{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.action-btn-user button{
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 50%;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    font-weight: 500;
+    background: red;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.action-btn-user button:nth-child(1){
+    border: 1px solid #999;
+    color: #999;
+    background: #fff;
+}
+
+/*notification*/
+
+.btn-notification-user{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn-notification-user button{
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: var(--sm);
+    font-weight: 500;
+    background: red;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.btn-notification-user button:nth-child(2){
+    border: 1px solid #999;
+    color: #999;
+    background: #fff;
+}
+
+.parrafo-rotification-user{
+    color: #fff;
+    font-size: var(--sm);
+}
+
+.not-users{
+    color: var(--text--input--field);
+    background-color: var(--black--d);
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
