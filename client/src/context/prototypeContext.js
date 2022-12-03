@@ -115,8 +115,9 @@ export const ProtoProvider = ({children}) => {
 
     const deleteComputer = async (id) => {  
         const res = await deleteComputerRequest(id)
-        if(res.status ===204) {
+        if(res.status === 204) {
             setComputers(computers.filter((computer) => computer._id !==id))
+            await getLabs()
         }
     }
 

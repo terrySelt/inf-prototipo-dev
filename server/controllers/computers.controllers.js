@@ -65,6 +65,7 @@ export const updateComputer = async (req, res) => {
 export const deleteComputer = async (req, res) => {
     try {
         const computerRemoved = await Computer.findByIdAndDelete(req.params.id)
+        await Lab.updateOne({name:computerRemoved.lab}, { $inc: {quantity: -1} })
         if(!computerRemoved) return res.sendStatus(404)
         if(computerRemoved.image.public_id){
             await deleteImage(computerRemoved.image.public_id)
