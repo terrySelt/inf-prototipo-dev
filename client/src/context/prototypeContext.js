@@ -31,6 +31,7 @@ export const ProtoProvider = ({children}) => {
             setUsers([...users, res.data])
         } else {
             console.log('No seas pendejo, ya existe la categoria')
+            notify('Ya existe la categoria')
         }
     }
 
@@ -105,7 +106,7 @@ export const ProtoProvider = ({children}) => {
 
     const deleteComputer = async (id) => {  
         const res = await deleteComputerRequest(id)
-        if(res.status ===204) {
+        if(res.status === 204) {
             setComputers(computers.filter((computer) => computer._id !==id))
             await getLabs()
         }
