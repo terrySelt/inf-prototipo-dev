@@ -10,9 +10,9 @@ export const getFts = async (req, res) => {
 }
 
 export const createFt = async(req, res) => {
-    try {
-        const {code, date_admission, lab, brand, type, model, diagnosis, type_maintenance, disarmed_e, cleaning_tm, cleaning_ram, cleaning_cc, cleaning_tv, cleaning_fa, change_pt, cleaning_q, cleaning_ld, cleaning_tr, check_e, causes, conclusion, installation_so, installation_drivers, installation_oficce, activation_oficce, installation_utility, installation_antivirus, installation_as, update_so, update_drivers, update_utility, date_departure, responsible} = req.body
-        const newFt = new Ft({code, date_admission, lab, brand, type, model, diagnosis, type_maintenance, disarmed_e, cleaning_tm, cleaning_ram, cleaning_cc, cleaning_tv, cleaning_fa, change_pt, cleaning_q, cleaning_ld, cleaning_tr, check_e, causes, conclusion, installation_so, installation_drivers, installation_oficce, activation_oficce, installation_utility, installation_antivirus, installation_as, update_so, update_drivers, update_utility, date_departure, responsible})
+    try {        
+        const {code, date_admission, lab, brand, type, model, diagnosis, m_preventive, m_corrective, m_logical, disarmed_e, cleaning_tm, cleaning_ram, cleaning_cc, cleaning_tv, cleaning_fa, change_pt, cleaning_q, cleaning_ld, cleaning_tr, check_e, causes, conclusion, installation_so, installation_drivers, installation_oficce, activation_oficce, installation_utility, installation_antivirus, installation_as, update_so, update_drivers, update_utility, date_departure, responsible} = req.body
+        const newFt = new Ft({code, date_admission, lab, brand, type, model, diagnosis, m_preventive, m_corrective, m_logical, disarmed_e, cleaning_tm, cleaning_ram, cleaning_cc, cleaning_tv, cleaning_fa, change_pt, cleaning_q, cleaning_ld, cleaning_tr, check_e, causes, conclusion, installation_so, installation_drivers, installation_oficce, activation_oficce, installation_utility, installation_antivirus, installation_as, update_so, update_drivers, update_utility, date_departure, responsible})
         await newFt.save()
         return res.json(newFt)
     } catch (error) {

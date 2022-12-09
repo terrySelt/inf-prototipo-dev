@@ -36,8 +36,37 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
     try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true})
-        return res.send(updatedUser)
+        if(req.files?.image){
+            const user = await User.findById(req.body._id)
+            if(user.name.public_id!=="prototipo/1_pqf1ax.png"){
+                await deleteImage(user.image.public_id)
+            }
+            let image;
+            const result = await uploadImage(req.files.image.tempFilePath)
+            await fs.remove(req.files.image.tempFilePath)
+            image = {
+                url : result.secure_url,
+                public_id : result.public_id
+            }
+            let body = {
+                name: req.body.name,
+                image: image,
+                type: req.body.type,
+                email: req.body.email,
+                password: req.body.password
+            }
+            const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
+            return res.send(updatedUser)
+        } else{
+            let body = {
+                name: req.body.name,
+                type: req.body.type,
+                email: req.body.email,
+                password: req.body.password
+            }
+            const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
+            return res.send(updatedUser)
+        }
     } catch (error) {
         return res.status(500).json({message: error.message})
     }

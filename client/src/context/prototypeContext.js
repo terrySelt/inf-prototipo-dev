@@ -1,8 +1,12 @@
 import {useState, createContext, useContext, useEffect} from 'react'
+import toast, { Toaster } from 'react-hot-toast'
+
 import { createComputerRequest, deleteComputerRequest, getComputerRequest, getComputersRequest, updateComputerRequest } from '../api/computers'
 import { createLabRequest, deleteLabRequest, getLabRequest, getLabsRequest, updateLabRequest } from '../api/labs'
 import { getUsersRequest, createUserRequest, deleteUserRequest, getUserRequest, updateUserRequest } from '../api/users'
+import { getFtsRequest, createFtRequest, deleteFtRequest, getFtRequest, updateFtRequest} from '../api/fts' 
 
+const notify = (msj) => toast(msj)
 
 const protoContext = createContext()
 
@@ -93,25 +97,17 @@ export const ProtoProvider = ({children}) => {
         if(!existe){
             const res = await createComputerRequest(computer)
             setComputers([...computers, res.data])
+            await getLabs()
         } else {
-            console.log('No seas pendejo, ya existe la computadora')
+            notify('Ya existe la computadora')
         }
-
-        //const lab = labs.find(el =>el.name === computer.lab)
-        //console.log(lab)
-        //const id = lab.id
-        //let cant = lab.quantity
-        //let cant2 = cant + 1
-        //lab.quantity = cant2
-        //console.log(lab)
-        //const newlab = await updateLabRequest(id, lab)
-        //console.log(newlab)
     }
 
     const deleteComputer = async (id) => {  
         const res = await deleteComputerRequest(id)
         if(res.status ===204) {
             setComputers(computers.filter((computer) => computer._id !==id))
+            await getLabs()
         }
     }
 
@@ -123,13 +119,45 @@ export const ProtoProvider = ({children}) => {
     
     const updateComputer = async(id, computer) => {
         const res = await updateComputerRequest(id, computer)
-        setUsers(computers.map((computer) => (computer._id===id ? res.data : computer)))
+        setComputers(computers.map((computer) => (computer._id===id ? res.data : computer)))
     }
 
+    //Fts------------------------------------------------------------------------
+        
+    const [fts, setFts] = useState([])
+
+    const getFts = async () => {
+        const res = await getFtsRequest()
+        setFts(res.data)
+    }
+    
+    const createFt = async (ft) => {
+        const res = await createFtRequest(ft)
+        setFts([...fts, res.data])
+    }
+    
+    const deleteFt = async id => {
+        const res = await deleteFtRequest(id)
+        if (res.status === 204) {
+            setFts(labs.filter((ft) => ft._id !==id ))
+        }
+    }
+    
+    const getFt = async id => {
+        const res = await getFtRequest(id)
+        return res.data
+    }
+    
+    const updateFt = async(id, lab) => {
+        const res = await updateFtRequest(id, lab)
+        setFts(fts.map((ft) => (ft._id === id ? res.data : ft)))
+    }
+    
     useEffect(() => {
         getUsers()
         getLabs()
         getComputers()
+        getFts()
       }, [])
 
     return <protoContext.Provider value={{
@@ -150,7 +178,13 @@ export const ProtoProvider = ({children}) => {
         createComputer,
         deleteComputer,
         getComputer,
-        updateComputer
+        updateComputer,
+        fts,
+        getFts,
+        createFt,
+        deleteFt,
+        getFt,
+        updateFt
         }}>
             {children}
         </protoContext.Provider>
