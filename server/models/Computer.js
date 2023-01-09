@@ -16,7 +16,7 @@ const computerSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    type:{
+    model:{
         type: String,
         required: true,
         trim: true
@@ -26,14 +26,7 @@ const computerSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    serie: {
-        type: String,
-        trim: true
-    },
-    model: {
-        type: String,
-        trim: true
-    },
+
     processor: {
         type: String,
         required: true,

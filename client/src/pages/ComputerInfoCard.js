@@ -53,20 +53,12 @@ export function ComputerInfoCard() {
             <p>{params.lab}</p>
           </div>
           <div className='div-p-ic'>
-            <p>Tipo</p>
-            <p>{params.type}</p>
+            <p>Modelo</p>
+            <p>{params.model}</p>
           </div>
           <div className='div-p-ic'>
             <p>Marca</p>
             <p>{params.brand}</p>
-          </div>
-          <div className='div-p-ic'>
-            <p>Serie</p>
-            <p>{params.serie}</p>
-          </div>
-          <div className='div-p-ic'>
-            <p>Modelo</p>
-            <p>{params.model}</p>
           </div>
           <div className='div-p-ic'>
             <p>Procesador</p>

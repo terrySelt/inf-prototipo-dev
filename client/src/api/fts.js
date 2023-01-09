@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { BsCode } from 'react-icons/bs'
 
 export const getFtsRequest = async () => await axios.get('/fts')
 

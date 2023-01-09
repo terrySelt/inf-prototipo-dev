@@ -7,8 +7,6 @@ import '../css/LabList.css'
 export function LabList() {
     const { labs } = useMyContex()
 
-    console.log(labs)
-
     if(labs.length === 0) return (
         <div className="not-labs">
             <Navigation />

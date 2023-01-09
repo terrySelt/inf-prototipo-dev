@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 const ftSchema = new mongoose.Schema({
     code: {
         type: String,
-        trim: true
+        trim: true,
     },
     date_admission:{
         type: Date,
@@ -14,10 +14,6 @@ const ftSchema = new mongoose.Schema({
         trim: true
     },
     brand: {
-        type: String,
-        trim: true
-    },
-    type:{
         type: String,
         trim: true
     },
@@ -123,6 +119,7 @@ const ftSchema = new mongoose.Schema({
     date_departure:{
         type: Date,
         trim: true,
+        default: new Date().toLocaleString()
     },
     responsible: {
         type: String,

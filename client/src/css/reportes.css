@@ -1,0 +1,135 @@
+.container-form-reportes{
+    background-color: var(--black--m);
+    width: 280px;
+    border-radius: 4px;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.header-form-reportes{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    padding: 30px;
+    padding-bottom: 0;
+}
+
+.header-form-reportes h3{
+    font-size: var(--md);
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.formsearch{
+    color: white;
+    font-size: var(--sm);
+    padding: 30px;  
+    padding-top: 0;
+}
+
+.form-reportes{
+    display: flex;
+}
+
+.imput-date-reportes{
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.container2-reportes{
+    display: flex;
+    overflow-x: scroll;
+    overscroll-behavior-x: contain;
+    height: auto;
+    box-sizing: border-box;
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.container2-reportes::-webkit-scrollbar{
+    background: transparent;
+}
+
+.table{
+    color: #fff;
+    border: 1px solid rgba(203, 213, 224, 0.1);
+    background-color: hsl(217, 33%, 17%);
+    font-size: var(--sm);
+    border-collapse: collapse;
+}
+
+.table thead{
+    background-color: #0f172a;
+}
+
+.table th{
+    padding: 5px;
+}
+
+.table td{
+    padding: 5px;
+    text-align: center;
+}
+
+.table tr{
+    border: 1px solid rgba(203, 213, 224, 0.1);
+}
+
+.table tbody{
+    background-color: #1e293b;
+}
+
+.form-reportes-regresar{
+    font-size: var(--sm);
+    color: #cbd5e0;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.form-reportes{
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.label-form-reportes{
+    font-size: var(--sm);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.button-reportes{
+    display: flex;
+    gap: 10px;
+}
+
+.btn-guardar-reportes{
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: var(--sm);
+    font-weight: 500;
+    background: var(--black--l);
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    width: 50%;
+}
+
+.btn-guardar-reportes-icon {
+    animation: btn-guardar-reportes-icon  1s linear infinite;
+}
+
+@keyframes btn-guardar-reportes-icon{
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

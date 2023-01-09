@@ -18,48 +18,48 @@ export function FtForm() {
 
   const [ft, setFt] = useState({
     code: params.code,
-    date_admission: Date.now(),
+    date_admission: new Date().toLocaleString(),
     lab: params.lab,
     brand: params.brand,
-    type: params.type,
-    model: params.brand,
-    m_preventive: false,
-    disarmed_e: false,
-    cleaning_tm: false,
-    cleaning_ram: false,
-    cleaning_cc: false,
-    cleaning_tv: false,
-    cleaning_fa: false,
-    change_pt: false,
-    cleaning_q: false,
-    cleaning_ld: false,
-    cleaning_tr: false,
-    check_e: '',
-    m_logical: false,
-    installation_so: '',
-    installation_drivers: '',
-    installation_oficce: '',
-    activation_oficce: '',
-    installation_utility: '',
-    installation_antivirus: '',
-    installation_as: '',
-    update_so: '',
-    update_drivers: '',
-    update_utility: '',
-    m_corrective: false,
-    causes: '',
-    conclusion: '',
-    date_departure: Date.now(),
+    model: params.model,
+    diagnosis: undefined,
+    m_preventive: undefined,
+    disarmed_e: undefined,
+    cleaning_tm: undefined,
+    cleaning_ram: undefined,
+    cleaning_cc: undefined,
+    cleaning_tv: undefined,
+    cleaning_fa: undefined,
+    change_pt: undefined,
+    cleaning_q: undefined,
+    cleaning_ld: undefined,
+    cleaning_tr: undefined,
+    check_e: undefined,
+    m_logical: undefined,
+    installation_so: undefined,
+    installation_drivers: undefined,
+    installation_oficce: undefined,
+    activation_oficce: undefined,
+    installation_utility: undefined,
+    installation_antivirus: undefined,
+    installation_as: undefined,
+    update_so: undefined,
+    update_drivers: undefined,
+    update_utility: undefined,
+    m_corrective: undefined,
+    causes: undefined,
+    conclusion: undefined,
+    date_departure: undefined,
   })
 
-  useEffect(() => {
+   useEffect(() => {
     (async() => {
       if(params.id){
         const ft = await getFt(params.id)
         setFt(ft)
       }
     })()
-  }, [params.id])
+  }, [params.id]) 
 
   const [style, setStyle] = useState('btn-prevent-ft')
   const changeStyle = () =>{
@@ -99,7 +99,7 @@ export function FtForm() {
       <div className='container-form-ft2'>
         <div className='header-form-ft'>
           <div className='regresar-ft'>
-          <Link to='/ftlist' className='form-ft-regresar'>Regresar</Link>
+          <Link to='/computerlist' className='form-ft-regresar'>Regresar</Link>
           </div>
           <div>
           <h3>Nueva Ficha técnica</h3>
@@ -113,12 +113,12 @@ export function FtForm() {
           onSubmit = { async (values,actions) => {
             if (params.id){
               await updateFt(params.id, values)
-            }else{
+            }else {
               await createFt(values)
-            }
+            } 
 
             actions.setSubmitting(false)
-            navigate('/FtList')
+            navigate('/ComputerList')
           }}
           enableReinitialize
         >
@@ -128,19 +128,19 @@ export function FtForm() {
                 <label htmlFor='code' className='label-form-ft'>Código de la computadora</label>
                 <Field name ='code' disabled/>
                 <label htmlFor='date_admission' className='label-form-ft'>Fecha de date_admission</label>
-                <Field name ='date_admission' disabled/>
+                <Field name ='date_admission'/>
                 <label htmlFor='lab' className='label-form-ft'>Laboratorio</label>
                 <Field name ='lab' disabled/>
                 <label htmlFor='brand' className='label-form-ft'>Marca</label>
                 <Field name ='brand' disabled/>
-                <label htmlFor='type' className='label-form-ft'>Tipo</label>
-                <Field name ='type' disabled/>
                 <label htmlFor='model' className='label-form-ft'>Model</label>
                 <Field name ='model' disabled/>
+                <label htmlFor='diagnosis' className='label-form-ft'>Diagnostico</label>
+                <Field name ='diagnosis' />
             </div>
             <div className='div-prevent-ft'>
               <label className='label-form-ft'>Mantenimiento preventivo
-              <Field type="checkbox" name="m_preventive " />
+              <Field type="checkbox" name="m_preventive" />
               </label>
               <div className='div-prevent-button-ft'>
                 <label className={style}>
@@ -219,9 +219,7 @@ export function FtForm() {
                 <label htmlFor='update_drivers' className='label-form-ft'>Actualización de drivers</label>
                 <Field name ='update_drivers' />
                 <label htmlFor='update_utility' className='label-form-ft'>Actualización de utilitarios</label>
-                <Field name ='update_drivers' />
-                <label htmlFor='responsible' className='label-form-ft'>Responsable</label>
-                <Field name ='update_drivers' />
+                <Field name ='update_utility' />
               </div>
             </div>
             <div className='div-corrective-ft'>
@@ -236,9 +234,9 @@ export function FtForm() {
               </div>
             </div>
             <label htmlFor='date_departure' className='label-form-ft'>Fecha de salida</label>
-            <Field name ='date_departure' disabled/>
+            <Field name ='date_departure'  placeholder='fecha actual' disabled/>
             <label htmlFor='responsible' className='label-form-ft'>Responsable del trabajo</label>
-            <Field name ='responsible' as='select' className='select-form-lab' defaultValue={'DEFAULT'}>
+            <Field name ='responsible' as='select' className='select-form-ft' defaultValue={'DEFAULT'}>
             <option value="DEFAULT" disabled>Seleccione un auxiliar</option>
               {users.map(user => (
                 <option key={user._id}>{user.name}</option>
@@ -250,7 +248,7 @@ export function FtForm() {
               className='btn-guardar-ft' 
               disabled={isSubmitting}>{isSubmitting ? (
                 <AiOutlineLoading3Quarters className='btn-guardar-ft-icon'/>
-              ) : 'Save'}
+              ) : 'Guardar'}
             </button>
           </Form>
           )}

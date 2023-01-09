@@ -15,14 +15,12 @@ export function ComputerForm() {
 
   const [computer, setComputer] = useState({
     code: '',
-    brand: '',
-    serie: '',
-    model: '',
-    processor: '',
-    memory: '',
-    disk: '',
-    graphic: '',
-    system: ''
+    brand: undefined,
+    processor: undefined,
+    memory: undefined,
+    disk: undefined,
+    graphic: undefined,
+    system: undefined
   })
 
   useEffect(() => {
@@ -32,7 +30,7 @@ export function ComputerForm() {
         setComputer(computer)
       }
     })()
-  }, [])
+  }, [params.id])
 
   return (
     <div className='container'>
@@ -47,10 +45,8 @@ export function ComputerForm() {
           validationSchema={Yup.object({
             code: Yup.string().required("EL codigo es requerido"),
             lab: Yup.string().required("EL laboratorio es requerido"),
-            type: Yup.string().required("EL tipo es requerido"),
+            model: Yup.string().required("EL modelo es requerido"),
             brand: Yup.string().required("La marca es requerida"),
-            serie: Yup.string(),
-            model: Yup.string(),
             processor: Yup.string().required("EL procesador es requerido"),
             memory: Yup.string().required("La memoria es requerida"),
             disk: Yup.string().required("El disco duro es requerido"),
@@ -82,22 +78,16 @@ export function ComputerForm() {
                 ))}
               </Field>
               <ErrorMessage component='p' className='errormessage-computer' name='lab' />
-              <label htmlFor='type' className='label-form-computer'>Tipo</label>
-              <Field name='type' as='select' className='select-form-computer' defaultValue={'DEFAULT'}>
-              <option value="DEFAULT" disabled>Selecciona el tipo</option>
+              <label htmlFor='model' className='label-form-computer'>Modelo</label>
+              <Field name='model' as='select' className='select-form-computer' defaultValue={'DEFAULT'}>
+              <option value="DEFAULT" disabled>Selecciona el modelo</option>
                 <option>Desktop</option>
                 <option>Laptop</option>
               </Field>
-              <ErrorMessage component='p' className='errormessage-computer' name='type' />
+              <ErrorMessage component='p' className='errormessage-computer' name='model' />
               <label htmlFor='brand' className='label-form-computer'>Marca</label>
               <Field name='brand' />
               <ErrorMessage component='p' className='errormessage-computer' name='brand' />
-              <label htmlFor='serie' className='label-form-computer'>Serie</label>
-              <Field name='serie' />
-              <ErrorMessage component='p' className='errormessage-computer' name='serie' />
-              <label htmlFor='model' className='label-form-computer'>Modelo</label>
-              <Field name='model' />
-              <ErrorMessage component='p' className='errormessage-computer' name='model' />
               <label htmlFor='processor' className='label-form-computer'>Procesador</label>
               <Field name='processor' />
               <ErrorMessage component='p' className='errormessage-computer' name='processor' />

@@ -16,7 +16,7 @@ export function Navigation() {
                     <Link to='/ComputerList' className='form-user-regresar'>Computadoras</Link>
                 </li>
                 <li>
-                    <Link to='/FtList' className='form-user-regresar'>Fichas técnicas</Link>
+                    <Link to='/Reportes' className='form-user-regresar'>Reportes</Link>
                 </li>
             </ul>
         </nav>

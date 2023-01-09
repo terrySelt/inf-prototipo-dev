@@ -16,7 +16,7 @@ export const getComputers = async (req, res) => {
 
 export const createComputer = async(req, res) => {
     try {
-        const {code, lab, type, brand, serie, model, processor, memory, disk, graphic, system} = req.body
+        const {code, lab, model, brand, processor, memory, disk, graphic, system} = req.body
         const imgname = v4()
         const QrGenerate = async text => {
             try {
@@ -37,7 +37,7 @@ export const createComputer = async(req, res) => {
         } catch (error) {
             console.log(error)
         }
-        const newComputer = new Computer({code, image, lab, type, brand, serie, model, processor, memory, disk, graphic, system})
+        const newComputer = new Computer({code, image, lab, model, brand, processor, memory, disk, graphic, system})
         await newComputer.save()
         const updateLab = await Lab.updateOne({name:lab}, { $inc: {quantity: 1} })
         const computer2 = await Computer.findOne({
@@ -56,6 +56,10 @@ export const updateComputer = async (req, res) => {
     try {
         const computer = await Computer.findById(req.body._id)
         if(req.body.code!==computer.code){
+            if(req.body.lab!==computer.lab){
+                await Lab.updateOne({name:computerRemoved.lab}, { $inc: {quantity: -1} })  
+                //no actualiza la cantidad de pcs en lab 
+            }
             await deleteImage(computer.image.public_id)
             const imgname = v4()
             const QrGenerate = async text => {
@@ -81,10 +85,8 @@ export const updateComputer = async (req, res) => {
                 image: image,
                 code: req.body.code,
                 lab: req.body.lab,
-                type: req.body.type,
-                brand: req.body.brand,
-                serie: req.body.serie,
                 model: req.body.model,
+                brand: req.body.brand,
                 processor: req.body.processor,
                 memory: req.body.memory,
                 disk: req.body.disk,
@@ -96,10 +98,8 @@ export const updateComputer = async (req, res) => {
         } else{
             let body = {
                 lab: req.body.lab,
-                type: req.body.type,
+                type: req.body.model,
                 brand: req.body.brand,
-                serie: req.body.serie,
-                model: req.body.model,
                 processor: req.body.processor,
                 memory: req.body.memory,
                 disk: req.body.disk,

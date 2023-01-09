@@ -10,10 +10,10 @@ export function ComputerCard({computer}) {
       {computer.image && <div className='img-div-computer' ><img src={computer.image.url} alt='Imagen URL' /></div>}
       <div className='content-computer'>
         <div className='name-computer'>
-          <h2  onClick={() => navigate(`/ComputerInfoCard/${computer._id}/${computer.code}/${computer.lab}/${computer.brand}/${computer.serie}/${computer.type}/${computer.model}/${computer.processor}/${computer.memory}/${computer.disk}/${computer.graphic}/${computer.system}`)}>{computer.code}</h2>
+          <h2  onClick={() => navigate(`/ComputerInfoCard/${computer._id}/${computer.code}/${computer.lab}/${computer.model}/${computer.brand}/${computer.processor}/${computer.memory}/${computer.disk}/${computer.graphic}/${computer.system}`)}>{computer.code}</h2>
           <div className='div-button2'>
-            <button onClick={() => navigate(`/FtForm/${computer.code}/${computer.lab}/${computer.brand}/${computer.type}/${computer.model}`)}>Nueva ficha técnica</button>
-            <button onClick={() => navigate(`/computersdata/${computer._id}`)}>Historial</button>
+            <button onClick={() => navigate(`/FtForm/${computer.code}/${computer.lab}/${computer.model}/${computer.brand}`)}>Nueva ficha técnica</button>
+            <button onClick={() => navigate(`/FtList/${computer.code}`)}>Historial</button>
           </div>
         </div>
       </div>

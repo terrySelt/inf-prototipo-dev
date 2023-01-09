@@ -111,7 +111,6 @@ export const ProtoProvider = ({children}) => {
             await getLabs()
         }
     }
-
     
     const getComputer = async (id) => {
         const res = await getComputerRequest(id)
@@ -153,7 +152,11 @@ export const ProtoProvider = ({children}) => {
         const res = await updateFtRequest(id, lab)
         setFts(fts.map((ft) => (ft._id === id ? res.data : ft)))
     }
-    
+
+    /*----search---------------------------------------------------------------------*/
+
+    const [code, setCode] = useState('')
+
     useEffect(() => {
         getUsers()
         getLabs()
@@ -185,7 +188,9 @@ export const ProtoProvider = ({children}) => {
         createFt,
         deleteFt,
         getFt,
-        updateFt
+        updateFt,
+        code,
+        setCode
         }}>
             {children}
         </protoContext.Provider>
