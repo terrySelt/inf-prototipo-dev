@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import { createComputerRequest, deleteComputerRequest, getComputerRequest, getComputersRequest, updateComputerRequest } from '../api/computers'
 import { createLabRequest, deleteLabRequest, getLabRequest, getLabsRequest, updateLabRequest } from '../api/labs'
 import { getUsersRequest, createUserRequest, deleteUserRequest, getUserRequest, updateUserRequest } from '../api/users'
-import { getFtsRequest, createFtRequest, deleteFtRequest, getFtRequest, updateFtRequest} from '../api/fts' 
+import { getFtsRequest, createFtRequest, deleteFtRequest, getFtRequest, updateFtRequest, getFtsReportes} from '../api/fts' 
 
 const notify = (msj) => toast(msj)
 
@@ -157,6 +157,15 @@ export const ProtoProvider = ({children}) => {
 
     const [code, setCode] = useState('')
 
+    /*-------reportes----------------------------------------------------------------*/
+
+    const [repo, setRepo] = useState([])
+    const getReportes = async(dates) => {
+        const res = await getFtsReportes(dates)
+        setRepo(res.data)
+        
+    }
+
     useEffect(() => {
         getUsers()
         getLabs()
@@ -190,7 +199,9 @@ export const ProtoProvider = ({children}) => {
         getFt,
         updateFt,
         code,
-        setCode
+        setCode,
+        repo,
+        getReportes
         }}>
             {children}
         </protoContext.Provider>

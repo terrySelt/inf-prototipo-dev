@@ -1,11 +1,13 @@
 import { useMyContex } from '../context/prototypeContext';
 import {Formik, Form, Field} from 'formik'
-import {AiOutlineLoading3Quarters} from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom';
 import { ImSearch } from "react-icons/im";
 import '../css/search.css'
 
-export function Search() {
+export function Search(hola) {
   const { code, setCode } = useMyContex()
+
+  const navigate = useNavigate()
 
   const searchchart = (e) => {
     setCode(e.target.value)
@@ -17,7 +19,7 @@ export function Search() {
         <Formik
           initialValues={code}
           onSubmit = { async (values,actions) => {
-            console.log(values)
+            navigate('/Scanner')
           }}
         >
           
@@ -28,12 +30,11 @@ export function Search() {
             <Field name ='code' placeholder='Busqueda' type='text' onChange={searchchart} value={code}/>
             <ImSearch className='search-icon'/>
             </div>
-            <button 
-              type='submit' 
+            <button
+              type='submit'  
               className='btn-guardar-search' 
-              disabled={isSubmitting}>{isSubmitting ? (
-                <AiOutlineLoading3Quarters className='btn-guardar-search-icon'/>
-              ) : 'Escanear'}
+              >
+                Scannear 
             </button>
           </Form>
           )}

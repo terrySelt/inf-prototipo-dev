@@ -2,27 +2,31 @@ import { Form, Formik } from 'formik'
 import { useMyContex } from '../context/prototypeContext';
 import {Link} from 'react-router-dom'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import DatePicker from "react-datepicker";
+import { useDownloadExcel } from 'react-export-table-to-excel';
 import "react-datepicker/dist/react-datepicker.css";
+import {Navigation} from '../components/Navigation'
 import '../css/reportes.css'
 
 
 export function Reportes() {
-  const { fts } = useMyContex()
+  const { repo, getReportes } = useMyContex()
 
   const [startDateini, setStartDateini] = useState(new Date());
   const [startDateend, setStartDateend] = useState(new Date());
 
-  const download = () => {
-    console.log('descargar')
-    const today = new Date();
-    const now = today.toLocaleString()
-    console.log(now)
-  }
+  const tableRef = useRef(null);
+
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: 'Reporte de mantenimiento',
+    sheet: 'Users'
+  })
 
   return (
     <div className="container">
+      <Navigation />
         <div className="container-form-reportes">
         <div className='header-form-reportes'>
           <h3>Reportes</h3>
@@ -32,12 +36,11 @@ export function Reportes() {
           <Formik
           initialValues = {[startDateini, startDateend]}
           onSubmit = { async (values,actions) => {
-            console.log(values) 
             let valuess = {
-              date_admission: values[0],
-              date_departure: values[1]
+              date_departure_ini: values[0].toISOString(),
+              date_departure_end: values[1].toISOString()
             }
-            console.log(valuess)
+            await getReportes(valuess)
           }}
           enableReinitialize
         >
@@ -50,7 +53,7 @@ export function Reportes() {
             selected={startDateini}
             onChange={(date) => setStartDateini(date)}
             timeInputLabel="Time:"
-            dateFormat="MM/dd/yyyy h:mm aa"
+            dateFormat="dd/MM/yyyy h:mm aa"
             showTimeInput
             className='imput-date-reportes'
             />
@@ -60,7 +63,7 @@ export function Reportes() {
             selected={startDateend}
             onChange={(date) => setStartDateend(date)}
             timeInputLabel="Time:"
-            dateFormat="MM/dd/yyyy h:mm aa"
+            dateFormat="dd/MM/yyyy h:mm aa"
             showTimeInput
             className='imput-date-reportes'
             />
@@ -74,11 +77,9 @@ export function Reportes() {
             </button>
             <button
               type='button' 
-              onClick={download}
-              className='btn-guardar-reportes' 
-              disabled={isSubmitting}>{isSubmitting ? (
-                <AiOutlineLoading3Quarters className='btn-guardar-reportes-icon'/>
-              ) : 'Descargar'}
+              onClick={onDownload}
+              className='btn-guardar-reportes'>
+                Exportar excel
             </button>
             </div>
           </Form>
@@ -87,18 +88,18 @@ export function Reportes() {
         </div>
         </div>
         <div className='container2-reportes'>
-          <table className='table'>
+          <table className='table' ref={tableRef}>
             <thead>
             <tr>
             <th>Fecha de mantenimiento</th>
             <th>Codigo</th>
             <th>Laboratorio</th>
-            <th>Respesponsable</th>
+            <th>Responsable</th>
             </tr>
             </thead>
 
             <tbody>
-            {fts.map((item) => (
+            {repo.map((item) => (
               <tr key={item._id}>
                 <td>{new Date(item.date_departure).toLocaleString()}</td>
                 <td>{item.code}</td>
