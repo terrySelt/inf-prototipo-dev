@@ -1,4 +1,5 @@
-import mongoose from "mongoose"
+import mongoose, { Schema } from "mongoose"
+import bcrypt from 'bcrypt'
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -17,10 +18,6 @@ const userSchema = new mongoose.Schema({
             default: "prototipo/1_pqf1ax.png"
         },
     },
-    type: {
-        type: String,
-        required: true
-    },
     email: {
         type: String,
         required: true,
@@ -31,7 +28,19 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-    }
+    },
+    roles: [{
+        ref: "Role",
+        type: Schema.Types.ObjectId
+    }]
 })
+
+userSchema.statics.encriptPassword = async (password) => {
+    return await  bcrypt.hash(password, 10)
+}
+
+userSchema.statics.comparePassword = async (password, receivePassword) => {
+    return await bcrypt.compare(password, receivePassword)
+}
 
 export default mongoose.model('User', userSchema)

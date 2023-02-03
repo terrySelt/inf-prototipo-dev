@@ -1,20 +1,22 @@
 import User from "../models/User.js"
+import Role from "../models/Role.js"
 import {uploadImage, deleteImage} from "../libs/cloudinary.js"
 import fs from "fs-extra"
 
 export const getUsers = async (req, res) => {
     try {
-        const users = await User.find()
+        const users = await User.find().select("-password")
         res.send(users)
     } catch (error) {
         return res.status(500).json({message: error.message})
     }
 }
 
+
 export const createUser = async (req, res) => {
     try {
-        const {name, type, email, password}= req.body
-
+        const {name, email, roles, password} = req.body
+        
         let image;
         
         if(req.files?.image){
@@ -26,8 +28,21 @@ export const createUser = async (req, res) => {
             }
         }
 
-        const newUser = new User({name, image, type, email, password})
+        let newUser = new User({name, image, email, password: await User.encriptPassword(password),})
+
+        if(roles==="admin"){
+            const roleuser = await Role.findOne({name: "user"})
+            const roleadmin = await Role.findOne({name: "admin"})
+            newUser.roles = [roleadmin._id, roleuser._id] 
+        } else {
+        }
+        if(roles==='user'){
+            const roleuser = await Role.findOne({name: "user"})
+            newUser.roles = [roleuser._id]
+        }
+        
         await newUser.save()
+        delete newUser._doc.password
         return res.json(newUser)
     } catch (error) {
         return res.status(500).json({message: error.message})
@@ -56,6 +71,7 @@ export const updateUser = async (req, res) => {
                 password: req.body.password
             }
             const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
+            delete updatedUser._doc.password
             return res.send(updatedUser)
         } else{
             let body = {
@@ -65,6 +81,7 @@ export const updateUser = async (req, res) => {
                 password: req.body.password
             }
             const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
+            delete updatedUser._doc.password
             return res.send(updatedUser)
         }
     } catch (error) {
@@ -90,7 +107,7 @@ export const deleteUser = async (req, res) => {
 
 export const getUser = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id)
+        const user = await User.findById(req.params.id).select("-password")
         if(!user) return res.sendStatus(404)
         return res.json(user)
     } catch (error) {
@@ -98,5 +115,3 @@ export const getUser = async (req, res) => {
     }
     
 }
-
-export const signinUser = (req, res) => res.send('login usuario')

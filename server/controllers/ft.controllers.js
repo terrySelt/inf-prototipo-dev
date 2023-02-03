@@ -51,11 +51,10 @@ export const getFt = async (req, res) => {
 
 export const getReportes = async (req, res) => {
 
-    const {date_inicio, date_end} = req.body   
-    console.log(req.body)
+    const {date_departure_ini, date_departure_end} = req.body   
 
     try {
-        const repo = await Ft.find({"date_departure": {$gte: date_inicio, $lte: date_end}})
+        const repo = await Ft.find({"date_departure": {$gte: date_departure_ini, $lte: date_departure_end}})
         res.send(repo)
     } catch (error) {
         return res.status(500).json({message: error.message})

@@ -119,7 +119,7 @@ const ftSchema = new mongoose.Schema({
     date_departure:{
         type: Date,
         trim: true,
-        default: new Date().toLocaleString()
+        default: Date.now
     },
     responsible: {
         type: String,
