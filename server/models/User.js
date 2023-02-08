@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    recoveryToken: {
+        type: String,
+        default: null,
+        trim: true
+    },
     roles: [{
         ref: "Role",
         type: Schema.Types.ObjectId
