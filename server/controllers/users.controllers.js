@@ -92,76 +92,62 @@ export const updateUser = async (req, res) => {
                 password: req.body.password
             }
 
-            if(req.body?.roles){
                 
-                if(req.body.roles === 'user'){
+            if(req.body.roles === 'user'){
 
-                    const admin = user.roles.find(item => item.toString() === roleadmin._id.toString())//se identifica el rol admin
-                    const updatedrole = await User.findByIdAndUpdate(req.params.id, {$pull: {"roles": admin}}, { new: true}) //se elimina el rol admin
+                const admin = user.roles.find(item => item.toString() === roleadmin._id.toString())//se identifica el rol admin
+                const updatedrole = await User.findByIdAndUpdate(req.params.id, {$pull: {"roles": admin}}, { new: true}) //se elimina el rol admin
                     
+                const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
+                delete updatedUser._doc.password
+                delete updatedUser._doc.recoveryToken
+                return res.send(updatedUser)
+            } else{
+
+                const admin = user.roles.find(item => item.toString() === roleadmin._id.toString())
+                if(!admin){
+                    const updatedrole = await User.findByIdAndUpdate(req.params.id, {$push: {"roles": roleadmin._id}}, { new: true}) 
                     const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
                     delete updatedUser._doc.password
                     delete updatedUser._doc.recoveryToken
                     return res.send(updatedUser)
                 } else{
-
-                    const admin = user.roles.find(item => item.toString() === roleadmin._id.toString())
-                    if(!admin){
-                        const updatedrole = await User.findByIdAndUpdate(req.params.id, {$push: {"roles": roleadmin._id}}, { new: true}) 
-                        const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
-                        delete updatedUser._doc.password
-                        delete updatedUser._doc.recoveryToken
-                        return res.send(updatedUser)
-                    } else{
                         const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
                         delete updatedUser._doc.password
                         delete updatedUser._doc.recoveryToken
                         return res.send(updatedUser) 
                     }
                 }
-            } else{
-                const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
-                delete updatedUser._doc.password
-                delete updatedUser._doc.recoveryToken
-                return res.send(updatedUser)
-            }
+
         } else{       
 
             let body = {
                 name: req.body.name,
                 email: req.body.email,
             }
-            
-            if(req.body?.roles){
                 
-                if(req.body.roles === 'user'){
-                    const admin = user.roles.find(item => item.toString() === roleadmin._id.toString())//se identifica el rol admin
-                    const updatedrole = await User.findByIdAndUpdate(req.params.id, {$pull: {"roles": admin}}, { new: true}) //se elimina el rol admin       
+            if(req.body.roles === 'user'){
+                const admin = user.roles.find(item => item.toString() === roleadmin._id.toString())//se identifica el rol admin
+                const updatedrole = await User.findByIdAndUpdate(req.params.id, {$pull: {"roles": admin}}, { new: true}) //se elimina el rol admin       
+                const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
+                delete updatedUser._doc.password
+                delete updatedUser._doc.recoveryToken
+                return res.send(updatedUser)
+            } else{
+                const admin = user.roles.find(item => item.toString() === roleadmin._id.toString())
+                if(!admin){
+                    const updatedrole = await User.findByIdAndUpdate(req.params.id, {$push: {"roles": roleadmin._id}}, { new: true}) 
                     const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
                     delete updatedUser._doc.password
                     delete updatedUser._doc.recoveryToken
                     return res.send(updatedUser)
                 } else{
-                    const admin = user.roles.find(item => item.toString() === roleadmin._id.toString())
-                    if(!admin){
-                        const updatedrole = await User.findByIdAndUpdate(req.params.id, {$push: {"roles": roleadmin._id}}, { new: true}) 
-                        const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
-                        delete updatedUser._doc.password
-                        delete updatedUser._doc.recoveryToken
-                        return res.send(updatedUser)
-                    } else{
-                        const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
-                        delete updatedUser._doc.password
-                        delete updatedUser._doc.recoveryToken
-                        return res.send(updatedUser) 
-                    }
-                }      
-            } else{
-                const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
-                delete updatedUser._doc.password
-                delete updatedUser._doc.recoveryToken
-                return res.send(updatedUser)
-            }
+                    const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true})
+                    delete updatedUser._doc.password
+                    delete updatedUser._doc.recoveryToken
+                    return res.send(updatedUser) 
+                }
+            }      
         }
     } catch (error) {
         return res.status(500).json({message: error.message})

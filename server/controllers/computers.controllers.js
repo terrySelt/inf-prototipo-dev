@@ -54,12 +54,10 @@ export const createComputer = async(req, res) => {
 
 export const updateComputer = async (req, res) => {
     try {
-        const computer = await Computer.findById(req.body._id)
+        const computer = await Computer.findById(req.params.id)
+
         if(req.body.code!==computer.code){
-            if(req.body.lab!==computer.lab){
-                await Lab.updateOne({name:computerRemoved.lab}, { $inc: {quantity: -1} })  
-                //no actualiza la cantidad de pcs en lab 
-            }
+
             await deleteImage(computer.image.public_id)
             const imgname = v4()
             const QrGenerate = async text => {
@@ -93,6 +91,12 @@ export const updateComputer = async (req, res) => {
                 graphic: req.body.graphic,
                 system: req.body.system           
             }
+            if(req.body.lab!==computer.lab){
+                const deletelab = await Lab.updateOne({name: computer.lab}, { $inc: {quantity: -1} })  
+                const addlab = await Lab.updateOne({name: req.body.lab}, { $inc: {quantity: 1} })
+                const updateComputer = await Computer.findByIdAndUpdate(req.params.id, body ,{new: true})
+                return res.send(updateComputer) 
+            }
             const updateComputer = await Computer.findByIdAndUpdate(req.params.id, body ,{new: true})
             return res.send(updateComputer)
         } else{
@@ -106,9 +110,17 @@ export const updateComputer = async (req, res) => {
                 graphic: req.body.graphic,
                 system: req.body.system           
             }
+            
+            if(req.body.lab!==computer.lab){
+                const deletelab = await Lab.updateOne({name: computer.lab}, { $inc: {quantity: -1} })  
+                const addlab = await Lab.updateOne({name: req.body.lab}, { $inc: {quantity: 1} })
+                const updateComputer = await Computer.findByIdAndUpdate(req.params.id, body ,{new: true})
+                return res.send(updateComputer) 
+            }
             const updateComputer = await Computer.findByIdAndUpdate(req.params.id, body ,{new: true})
-            return res.send(updateComputer)
-        }    
+            return res.send(updateComputer)    
+        }
+    
     } catch (error) {
         return res.status(500).json({message : error.message})
     }
