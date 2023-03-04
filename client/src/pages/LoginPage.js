@@ -1,30 +1,16 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import * as Yup from 'yup'
 import {useMyContex} from '../context/prototypeContext'
-import {Link, useNavigate, useParams} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import '../css/loginpage.css'
 
 export function LoginPage() {
 
-  const {createLab, users, getLab, updateLab} = useMyContex()
+  const {login} = useMyContex()
 
   const navigate = useNavigate()
-  const params = useParams()
-
-  const [lab, setLab] = useState({
-    name:'',
-  })
-
-  useEffect(() => {
-    (async() => {
-      if(params.id){
-        const lab = await getLab(params.id)
-        setLab(lab)
-      }
-    })()
-  }, [params.id])
 
   return (
     <div className='container'>
@@ -33,32 +19,31 @@ export function LoginPage() {
           <img src='2.png' alt='logo'/>
         </div>
         <Formik
-          initialValues = {lab}
+          initialValues = {{
+            email: '',
+            password: ''
+          }}
           validationSchema={Yup.object({
-            name: Yup.string().required('El nombre de laboratorio es requerido'),
-            responsible: Yup.string()
+            email: Yup.string().required('EL email es requerido').email('Formato de dirección de correo electrónico no válido'),
+            password: Yup.string().required('La contraseña es requerida').min(6, 'La contraseña debe tener 6 caracteres como mínimo')
           })}
           onSubmit = { async (values,actions) => {
-            if (params.id){
-              await updateLab(params.id, values)
-            }else{
-              await createLab(values)
-            }
-
+            await login(values)
+            
             actions.setSubmitting(false)
-            navigate('/LabList')
+            navigate('/ComputerList')
           }}
           enableReinitialize
         >
-          
+
           {({handleSubmit, isSubmitting}) => (
             <Form onSubmit={handleSubmit} className='form-login'>
-            <label htmlFor='name' className='label-form-login'>Email</label>
-            <Field name ='name' />
-            <ErrorMessage className='errormessage-login' component='p' name='name' />
-            <label htmlFor='name' className='label-form-login'>Contraseña</label>
-            <Field name ='name' />
-            <ErrorMessage className='errormessage-login' component='p' name='name' />
+            <label htmlFor='email' className='label-form-login'>Email</label>
+            <Field name ='email' />
+            <ErrorMessage className='errormessage-login' component='p' name='email' />
+            <label htmlFor='password' className='label-form-login'>Contraseña</label>
+            <Field name ='password' type='password'/>
+            <ErrorMessage className='errormessage-login' component='p' name='password' />
             <button 
               type='submit' 
               className='btn-guardar-login' 

@@ -17,7 +17,7 @@ export function UserList() {
   )
 
   return (
-    <div className="container">
+    <div className="container" key={1}>
       <Navigation />
       <div className="container2-user">
         {users.map(user => (

@@ -1,10 +1,11 @@
 import {useState, createContext, useContext, useEffect} from 'react'
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 
 import { createComputerRequest, deleteComputerRequest, getComputerRequest, getComputersRequest, updateComputerRequest } from '../api/computers'
 import { createLabRequest, deleteLabRequest, getLabRequest, getLabsRequest, updateLabRequest } from '../api/labs'
 import { getUsersRequest, createUserRequest, deleteUserRequest, getUserRequest, updateUserRequest } from '../api/users'
 import { getFtsRequest, createFtRequest, deleteFtRequest, getFtRequest, updateFtRequest, getFtsReportes} from '../api/fts' 
+import { loginRequest } from '../api/login'
 
 const notify = (msj) => toast(msj)
 
@@ -166,6 +167,34 @@ export const ProtoProvider = ({children}) => {
         
     }
 
+    /*-----------------login-------------------------------------------------------- */
+
+    const [user, setUser] = useState('')
+    const [token, setToken] = useState(null)
+
+    const login = async (user) => {
+        try {
+            const res = await loginRequest(user)
+
+            if(res.status !== 200) throw 'no funciona'
+
+            const token = res.data.token
+            document.cookie = `token=${token}; max-age=${3600*24}; path=/; samesite=strict`
+            console.log(document.cookie)
+
+            setUser(res.data.userFound)
+            setToken(token)
+            
+            console.log(res)
+
+        } catch (error) {
+            notify("No autorizado")
+            throw error
+        }
+        
+        //setFts([...fts, res.data])
+    }
+
     useEffect(() => {
         getUsers()
         getLabs()
@@ -201,7 +230,10 @@ export const ProtoProvider = ({children}) => {
         code,
         setCode,
         repo,
-        getReportes
+        getReportes,
+        user,
+        token,
+        login
         }}>
             {children}
         </protoContext.Provider>

@@ -44,7 +44,7 @@
 }
 
 .card-user:hover{
-    height: 315px;
+    height: 295px;
 }
 
 .img-div-user{
@@ -90,7 +90,7 @@
     width: 100%;
     text-align: center;
     transition: 0.5s;
-    transform: translateY(145px);
+    transform: translateY(125px);
     height: 40px;
     display: flex;
     justify-content: center;
@@ -98,7 +98,7 @@
 }
 
 .card-user:hover .content-user .name-user{
-    transform: translateY(0px);
+    transform: translateY(5px);
 }
 
 .name-user h2{

@@ -2,6 +2,7 @@ import {useMyContex} from '../context/prototypeContext'
 import {Link, useParams} from 'react-router-dom'
 import {ComputerCard} from '../components/ComputerCard'
 import { Navigation } from '../components/Navigation'
+import { Head } from '../components/Head'
 import { Search } from '../components/Search'
 
 
@@ -40,6 +41,7 @@ export function ComputerList() {
 
   return (
     <div className='container'>
+      <Head />
       <Navigation />
         <Link className="btn-new-computer" to='/ComputerForm'>Nueva Computadora</Link>
       <div className='container2-computer'>

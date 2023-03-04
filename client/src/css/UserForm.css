@@ -12,6 +12,7 @@
     justify-content: space-between;
     align-items: center;
     color: #fff;
+
 }
 
 .header-form-user h3{
@@ -35,6 +36,15 @@
     color: #fff;
 }
 
+.div-img-main{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .label-form-user{
     font-size: var(--sm);
     font-weight: 600;
@@ -43,10 +53,11 @@
 }
 
 .form-user input{
-    height: 30px;
+    height: 35px;
     margin-bottom: 12px;
     background: var(--text--input--field);
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .input-image-user{
@@ -83,6 +94,20 @@
 
 .btn-guardar-user-icon {
     animation: btn-guardar-user-icon  1s linear infinite;
+}
+
+.password-myacount{
+    display: none;
+}
+
+.showimput-password{
+    display: flex;
+    flex-direction: column;
+}
+
+.password-register{
+ width: 100%;   
+ box-sizing: border-box;
 }
 
 @keyframes btn-guardar-user-icon{

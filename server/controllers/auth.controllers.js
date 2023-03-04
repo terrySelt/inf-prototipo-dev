@@ -16,7 +16,10 @@ export const login = async (req, res) => {
 
     const token = jwt.sign({id: userFound._id}, SECRET, {expiresIn: 86400})
 
-    res.json({token})
+    delete userFound._doc.password
+    delete userFound._doc.recoveryToken
+
+    res.json({userFound, token})
 
 }
 

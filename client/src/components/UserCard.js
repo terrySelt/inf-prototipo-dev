@@ -26,15 +26,16 @@ export function UserCard({user}) {
       }
     })
   }
+
   return (
       <div className='card-user'>
-        {user.image && <div className='img-div-user'><img src={user.image.url} alt='joder' /></div>}
+        {user.image && <div className='img-div-user'><img src={user.image.url} alt='imagen del ususario' /></div>}
         <div className='content-user'>
           <div className='name-user'>
             <h2>{user.name}</h2>
           </div>
           <div className='data-user'>
-            <p>{user.type}</p>
+            <p>{(user.roles.length > 1 ) ? "admin" : "user"}</p>
             <p>{user.email}</p>
             <p>{user.password}</p>
             <div className='action-btn-user'>

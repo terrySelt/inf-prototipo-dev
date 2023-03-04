@@ -5,6 +5,7 @@
     box-sizing: border-box;
     border-radius: 4px;
     margin: 10px;
+    z-index: 1;
 }
 
 .form-search{
