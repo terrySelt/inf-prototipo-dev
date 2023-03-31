@@ -1,7 +1,7 @@
 import {useMyContex} from '../context/prototypeContext'
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import {Navigation} from '../components/Navigation'
-import '../css/FtList.css'
+import { NavigationWeb } from '../components/NavigationWeb'
 
 export function FtList() {
     const { fts} = useMyContex()
@@ -14,6 +14,7 @@ export function FtList() {
     
     if(existe.length === 0) return (
         <div className="not-fts">
+            <NavigationWeb />
             <Navigation />
             <h1>No hay Fichas técnicas</h1>
             <Link className="btn-new-lab" to="/ComputerList">Regresar</Link>
@@ -22,6 +23,7 @@ export function FtList() {
 
    return (
     <div className='container'>
+        <NavigationWeb />
         <Navigation />
         <div className='container2-ft'>
             <div className='header-form-ft'>

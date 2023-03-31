@@ -4,13 +4,20 @@ import { useEffect, useState} from 'react'
 import { RiComputerFill, RiHomeSmileFill } from 'react-icons/ri'
 import { IoDocumentText } from 'react-icons/io5';
 import { HiUserGroup } from 'react-icons/hi'
-import '../css/navigation.css'
+import '../css/style.css'
 
 export function Navigation() {
     const {user, token, getUser} = useMyContex()
 
-    const userconfig = () =>{
+    const [navusernavigation, setNavusernavigation] = useState('notshownavigation')
 
+    const userconfig = () =>{
+        let val = navusernavigation
+        if(val==="notshownavigation"){
+            setNavusernavigation('nav-usernavigation')
+        }else{
+            setNavusernavigation('notshownavigation')
+        }
     }
 
     const closedSesion = () => {
@@ -30,33 +37,33 @@ export function Navigation() {
         },[getUser,user._id])
 
   return (
-    <div className="navigation">
-        <nav className="nav-user">
+    <div className="fixed bottom-0 w-full h-auto z-10 lg:hidden">
+        <nav className={navusernavigation}>
             <ul>
                 <li>
-                    <Link to='/MyAcount' className='navigation-icon'>Mi cuenta</Link>
+                    <Link to='/MyAcount' className='text-md text-white'>Mi cuenta</Link>
                 </li>
                 <li>
-                    <Link onClick={closedSesion} to='/' className='navigation-icon'>Cerrar sesión</Link>
+                    <Link onClick={closedSesion} to='/' className='text-md text-white'>Cerrar sesión</Link>
                 </li>
             </ul>
         </nav>
-        <nav className="nav-menu">
-            <ul>
+        <nav className="p-1 bg-sky-900 w-full">
+            <ul className="flex justify-around items-center text-white tpn font-semibold">
                 <li>
-                    <Link to='/ComputerList' className='navigation-icon'>< RiComputerFill className="icon"/></Link>
+                    <Link to='/ComputerList' className='flex flex-col justify-center items-center'>< RiComputerFill className="w-6 h-6"/><p>Computadoras</p></Link>
                 </li>
                 <li>
-                    <Link to='/lablist' className='navigation-icon'>< RiHomeSmileFill className="icon"/></Link>
+                    <Link to='/lablist' className='flex flex-col justify-center items-center'>< RiHomeSmileFill className="w-6 h-6"/><p>Laboratorios</p></Link>
                 </li>
                 <li>
-                    <Link to='/Reportes' className='navigation-icon'>< IoDocumentText className="icon"/></Link>
+                    <Link to='/Reportes' className='flex flex-col justify-center items-center'>< IoDocumentText className="w-6 h-6"/><p>Reportes</p></Link>
                 </li>
                 <li>
-                    <Link to='/userlist' className='navigation-icon'>< HiUserGroup className="icon"/></Link>
+                    <Link to='/userlist' className='flex flex-col justify-center items-center'>< HiUserGroup className="w-6 h-6"/><p>Usuarios</p></Link>
                 </li>
                 <li>
-                    <Link onClick={userconfig} className='navigation-icon'><img className='avatar icon' src={image} alt='imagen del ususario' /></Link>
+                    <Link onClick={userconfig} className='flex flex-col justify-center items-center'><img className='w-6 h-6 rounded-full' src={image} alt='imagen del ususario' /><p>Mi cuenta</p></Link>
                 </li>
             </ul>
         </nav>

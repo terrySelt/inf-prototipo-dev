@@ -1,12 +1,12 @@
 import { useNavigate, Link} from 'react-router-dom'
 import { useMyContex } from "../context/prototypeContext"
 import { useEffect, useState, useRef } from 'react'
-import { Navigation } from '../components/Navigation'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import * as Yup from 'yup'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import {MdModeEdit} from 'react-icons/md'
-import '../css/useraux.css'
+import { Navigation } from '../components/Navigation'
+import { NavigationWeb } from '../components/NavigationWeb'
 
 export function MyAcount() {
 
@@ -64,7 +64,6 @@ export function MyAcount() {
       
       useEffect(() => {
         if(image){
-          console.log(image)
           const reader = new FileReader()
           reader.onload = () => {
               setPreview(reader.result.toString())
@@ -82,16 +81,17 @@ export function MyAcount() {
     }
 
     const stylechange = () => {
-      refStyle.current.className = 'showimput-password'
+      refStyle.current.className = 'showpassword'
     }
 
   return (
-    <div className="container">
+    <div className="bg-primary w-full h-full flex flex-col justify-center items-center lg:justify-start">
+      <NavigationWeb />
       <Navigation />
-      <div className='container-form-useraux'>
-        <div className='header-form-computer'>
-          <h3>Mi cuenta</h3>
-          <Link to='/computerlist' className='form-computer-regresar'>Regresar</Link>
+      <div className='bg-secondary w-5/6 h-auto rounded-md mt-4 mb-16 lg:w-1/4 lg:p-4 lg:mt-4 lg:mb-10'>
+        <div className='p-4 pb-0'>
+          <Link to='/computerlist' className='w-full text-cuarto flex justify-end font-semibold tracking-wider'>Regresar</Link>
+          <h3 className='text-white font-bold tracking-wider'>Mi cuenta</h3>
         </div>
         <Formik
           initialValues={useracount}
@@ -103,8 +103,7 @@ export function MyAcount() {
             newpassword: Yup.string().min(6, 'La contraseña debe tener 6 caracteres como mínimo'),
             confirmpassword: Yup.string().min(6, 'La contraseña debe tener 6 caracteres como mínimo')
           })}
-          onSubmit={ async (values, actions) => {   
-            console.log(values)         
+          onSubmit={ async (values, actions) => {            
             await updateUser(user._id, values)
             actions.setSubmitting(false)
             navigate('/ComputerList')
@@ -113,42 +112,42 @@ export function MyAcount() {
           >
           {
             ({handleSubmit, setFieldValue, isSubmitting}) => (
-              <Form className='form-user' onSubmit={handleSubmit}>
-                <div className='div-img-main'>
-                  <div className='div-img'>{image ? <img src={preview} alt='Imagen del usuario'/> : <img src={image2} alt='Imagen del usuario'/>}</div>
-                    <label htmlFor='image' className='label-form-user' onClick={uploadFiles} >Imagen de perfil <MdModeEdit /></label>
-                    <input type='file' name='image' ref={referencia} className='imput-img-myacount' onChange={(e) => {changeImg(e); setFieldValue('image', e.target.files[0])}}/>
+              <Form className='p-4 flex flex-col' onSubmit={handleSubmit}>
+                <div className='flex flex-col items-center'>
+                  <div className='w-28 h-28'>{image ? <img className='rounded-full' src={preview} alt='Imagen del usuario'/> : <img className='rounded-full' src={image2} alt='Imagen del usuario'/>}</div>
+                    <label htmlFor='image' className='mt-2 flex items-center font-medium' onClick={uploadFiles} >Imagen de perfil <MdModeEdit className='ml-2 w-5 h-5'/></label>
+                    <input className='hidden' type='file' name='image' ref={referencia} onChange={(e) => {changeImg(e); setFieldValue('image', e.target.files[0])}}/>
                 </div>
-                <label htmlFor='name' className='label-form-user'>Name</label>
+                <label htmlFor='name'>Name</label>
                 <Field name='name' />
-                <ErrorMessage className='errormessage-user' component='p' name='name' />
-                <label htmlFor='roles' className='label-form-user'>Estatus</label>
-                <Field className='select-form-user' name='roles' as='select' disabled>
-                  <option className='option-form-user' value='user'>user</option>
-                  <option className='option-form-user' value='admin'>admin</option>
+                <ErrorMessage className='errormessage' component='p' name='name' />
+                <label htmlFor='roles'>Estatus</label>
+                <Field className='mb-4 rounded-sm h-8 outline-none font-sans' name='roles' as='select' disabled>
+                  <option value='user'>user</option>
+                  <option value='admin'>admin</option>
                 </Field>
-                <ErrorMessage className='errormessage-user' component='p' name='roles' />
-                <label htmlFor='email' className='label-form-user'>Email</label>
+                <ErrorMessage className='errormessage' component='p' name='roles' />
+                <label htmlFor='email'>Email</label>
                 <Field name='email' />
-                <ErrorMessage className='errormessage-user' component='p' name='email' />
-                <label htmlFor='password' className='label-password' onClick={stylechange}>Cambiar contraseña</label>
-                <div className='password-myacount' ref={refStyle}>
-                  <label htmlFor='oldpassword' className='label-form-user-password' >Contraseña Actual</label>
-                  <Field name='oldpassword' className='notimput-password'/>
-                  <ErrorMessage className='errormessage-user' component='p' name='oldpassword' />
-                  <label htmlFor='newpassword' className='label-form-user-password' >Nueva contraseña</label>
-                  <Field name='newpassword' className='notimput-password'/>
-                  <ErrorMessage className='errormessage-user' component='p' name='newpassword' />
-                  <label htmlFor='confirmpassword' className='label-form-user-password' >Confirmar nueva contraseña</label>
-                  <Field name='confirmpassword' className='notimput-password'/>
-                  <ErrorMessage className='errormessage-user' component='p' name='confirmpassword' />
+                <ErrorMessage className='errormessage' component='p' name='email' />
+                <label className='text-blue-900' htmlFor='password' onClick={stylechange}>Cambiar contraseña</label>
+                <div className='passworhidden' ref={refStyle}>
+                  <label className='text-blue-800' htmlFor='oldpassword'>Contraseña Actual</label>
+                  <Field name='oldpassword'/>
+                  <ErrorMessage className='errormessage' component='p' name='oldpassword' />
+                  <label htmlFor='newpassword' className='text-blue-800' >Nueva contraseña</label>
+                  <Field name='newpassword'/>
+                  <ErrorMessage className='errormessage' component='p' name='newpassword' />
+                  <label htmlFor='confirmpassword' className='text-blue-800' >Confirmar nueva contraseña</label>
+                  <Field name='confirmpassword'/>
+                  <ErrorMessage className='errormessage' component='p' name='confirmpassword' />
                 </div>
                 <button 
-                  className='btn-guardar-useraux' 
+                  className='btn-primary hover:bg-slate-900 focus:outline-none disabled:bg-terceary flex justify-center' 
                   type='submit' 
                   disabled={isSubmitting}
                   >
-                    {isSubmitting ? (<AiOutlineLoading3Quarters className='btn-guardar-useraux-icon'/>) : 'Guardar'}
+                    {isSubmitting ? (<AiOutlineLoading3Quarters className='animate-spin w-5 h-5 '/>) : 'Guardar'}
                 </button>
               </Form>
             )

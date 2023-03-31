@@ -7,8 +7,7 @@ import DatePicker from "react-datepicker";
 import { useDownloadExcel } from 'react-export-table-to-excel';
 import "react-datepicker/dist/react-datepicker.css";
 import {Navigation} from '../components/Navigation'
-import '../css/reportes.css'
-
+import { NavigationWeb } from '../components/NavigationWeb';
 
 export function Reportes() {
   const { repo, getReportes } = useMyContex()
@@ -25,14 +24,13 @@ export function Reportes() {
   })
 
   return (
-    <div className="container">
+    <div className="bg-primary w-full h-screen flex flex-col justify-center items-center lg:justify-start">
+      <NavigationWeb />
       <Navigation />
-        <div className="container-form-reportes">
-        <div className='header-form-reportes'>
-          <h3>Reportes</h3>
-          <Link to='/computerlist' className='form-lab-regresar'>Regresar</Link>
+        <div className="bg-secondary w-5/6 h-auto rounded-md mt-4 mb-6 lg:w-1/4 lg:p-4 lg:mt-4 lg:mb-6">
+        <div className='p-4 pb-0'>
+          <Link to='/computerlist' className='w-full text-cuarto flex justify-end font-semibold tracking-wider'>Regresar</Link>
         </div>
-        <div className='formsearch'>
           <Formik
           initialValues = {[startDateini, startDateend]}
           onSubmit = { async (values,actions) => {
@@ -46,8 +44,8 @@ export function Reportes() {
         >
           
           {({handleSubmit, isSubmitting}) => (
-            <Form onSubmit={handleSubmit} className='form-reportes'>
-            <label name='dateini' className='label-form-reportes'>Fecha de inicio</label>
+            <Form onSubmit={handleSubmit} className='p-4 pt-0 flex flex-col'>
+            <label name='dateini'>Fecha de inicio</label>
             <DatePicker
             name='dateini'
             selected={startDateini}
@@ -55,9 +53,9 @@ export function Reportes() {
             timeInputLabel="Time:"
             dateFormat="dd/MM/yyyy h:mm aa"
             showTimeInput
-            className='imput-date-reportes'
+            className='w-full'
             />
-            <label name='dateend'className='label-form-reportes'>Fecha de inicio</label>
+            <label name='dateend'>Fecha de inicio</label>
             <DatePicker
             name ='dateend'
             selected={startDateend}
@@ -65,20 +63,20 @@ export function Reportes() {
             timeInputLabel="Time:"
             dateFormat="dd/MM/yyyy h:mm aa"
             showTimeInput
-            className='imput-date-reportes'
+            className='w-full'
             />
-            <div className='button-reportes'>
+            <div className='flex justify-around items-center'>
             <button 
               type='submit' 
-              className='btn-guardar-reportes' 
+              className='btn-primary w-24 h-16 hover:bg-slate-900 focus:outline-none disabled:bg-terceary flex justify-center items-center lg:w-28' 
               disabled={isSubmitting}>{isSubmitting ? (
-                <AiOutlineLoading3Quarters className='btn-guardar-reportes-icon'/>
+                <AiOutlineLoading3Quarters className='animate-spin w-5 h-5'/>
               ) : 'Filtrar'}
             </button>
             <button
               type='button' 
               onClick={onDownload}
-              className='btn-guardar-reportes'>
+              className='btn-primary w-24 h-16 lg:w-28'>
                 Exportar excel
             </button>
             </div>
@@ -86,25 +84,24 @@ export function Reportes() {
           )}
         </Formik>
         </div>
-        </div>
-        <div className='container2-reportes'>
-          <table className='table' ref={tableRef}>
-            <thead>
+        <div className='w-full h-auto items-center bg-terceary flex px-2 py-6 space-x-2 mb-16 overflow-x-auto overscroll-x-contain overflow-y-hidden justify-center lg:mt-4'>
+          <table className='table-auto text-white border-collapse border border-slate-500 flex-none' ref={tableRef}>
+            <thead className=' bg-slate-800'>
             <tr>
-            <th>Fecha de mantenimiento</th>
-            <th>Codigo</th>
-            <th>Laboratorio</th>
-            <th>Responsable</th>
+            <th className='border border-slate-600 p-3'>Fecha de mantenimiento</th>
+            <th className='border border-slate-600 p-3'>Codigo</th>
+            <th className='border border-slate-600 p-3'>Laboratorio</th>
+            <th className='border border-slate-600 p-3'>Responsable</th>
             </tr>
             </thead>
 
-            <tbody>
+            <tbody className='bg-slate-900'>
             {repo.map((item) => (
               <tr key={item._id}>
-                <td>{new Date(item.date_departure).toLocaleString()}</td>
-                <td>{item.code}</td>
-                <td>{item.lab}</td>
-                <td>{item.responsible}</td>
+                <td className='border border-slate-700 p-3'>{new Date(item.date_departure).toLocaleString()}</td>
+                <td className='border border-slate-700 p-3'>{item.code}</td>
+                <td className='border border-slate-700 p-3'>{item.lab}</td>
+                <td className='border border-slate-700 p-3'>{item.responsible}</td>
               </tr>
             ))}
             </tbody>

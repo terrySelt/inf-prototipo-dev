@@ -5,7 +5,7 @@ import {Link, useNavigate, useParams} from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import {Navigation} from '../components/Navigation'
-import '../css/LabForm.css'
+import { NavigationWeb } from '../components/NavigationWeb'
 
 export function LabForm() {
 
@@ -28,12 +28,13 @@ export function LabForm() {
   }, [params.id])
 
   return (
-    <div className='container'>
+    <div className='bg-primary w-full h-screen flex flex-col justify-center items-center lg:justify-start'>
+      <NavigationWeb />
       <Navigation />
-      <div className='container-form-lab2'>
-        <div className='header-form-lab'>
-          <h3>Nuevo Laboratorio</h3>
-          <Link to='/lablist' className='form-lab-regresar'>Regresar</Link>
+      <div className='bg-secondary w-5/6 h-auto rounded-md mt-4 mb-16 lg:w-1/4 lg:p-4 lg:mt-4 lg:mb-10'>
+        <div className='p-4 pb-0'>
+          <Link to='/lablist' className='w-full text-cuarto flex justify-end font-semibold tracking-wider'>Regresar</Link>
+          <h3 className='text-white font-bold tracking-wider'>Nuevo Laboratorio</h3>
         </div>
         <Formik
           initialValues = {lab}
@@ -55,23 +56,23 @@ export function LabForm() {
         >
           
           {({handleSubmit, isSubmitting}) => (
-            <Form onSubmit={handleSubmit} className='form-lab'>
-            <label htmlFor='name' className='label-form-lab'>Laboratorio</label>
+            <Form onSubmit={handleSubmit} className='p-4 flex flex-col'>
+            <label htmlFor='name'>Laboratorio</label>
             <Field name ='name' />
-            <ErrorMessage className='errormessage-lab' component='p' name='name' />
-            <label htmlFor='responsible' className='label-form-lab'>Responsable</label>
-            <Field name ='responsible' as='select' className='select-form-lab' defaultValue={'DEFAULT'}>
+            <ErrorMessage className='errormessage' component='p' name='name' />
+            <label htmlFor='responsible'>Responsable</label>
+            <Field name ='responsible' as='select' className='mb-4 rounded-sm h-8 outline-none font-sans' defaultValue={'DEFAULT'}>
             <option value="DEFAULT" disabled>Seleccione un auxiliar</option>
               {users.map(user => (
                 <option key={user._id}>{user.name}</option>
               ))}
             </Field>
-            <ErrorMessage className='errormessage-lab' component='p' name ='responsible' />
+            <ErrorMessage className='errormessage' component='p' name ='responsible' />
             <button 
               type='submit' 
-              className='btn-guardar-lab' 
+              className='btn-primary hover:bg-slate-900 focus:outline-none disabled:bg-terceary flex justify-center' 
               disabled={isSubmitting}>{isSubmitting ? (
-                <AiOutlineLoading3Quarters className='btn-guardar-laboratorio-icon'/>
+                <AiOutlineLoading3Quarters className='animate-spin w-5 h-5 '/>
               ) : 'Save'}
             </button>
           </Form>

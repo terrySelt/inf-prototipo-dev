@@ -1,10 +1,9 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import * as Yup from 'yup'
 import {useMyContex} from '../context/prototypeContext'
-import {Link, useNavigate} from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
-import '../css/loginpage.css'
+import logo from '../assets/images/2.png'
 
 export function LoginPage() {
 
@@ -13,10 +12,10 @@ export function LoginPage() {
   const navigate = useNavigate()
 
   return (
-    <div className='container'>
-      <div className='container-form-login'>
-        <div className='header-form-login'>
-          <img src='2.png' alt='logo'/>
+    <div className='bg-primary w-full h-screen flex justify-center items-center'>
+      <div className='container bg-secondary w-5/6 h-auto rounded-md lg:w-1/4 lg:p-6'>
+        <div className='flex justify-center my-8'>
+          <img src={logo} alt={logo}/>
         </div>
         <Formik
           initialValues = {{
@@ -37,18 +36,18 @@ export function LoginPage() {
         >
 
           {({handleSubmit, isSubmitting}) => (
-            <Form onSubmit={handleSubmit} className='form-login'>
-            <label htmlFor='email' className='label-form-login'>Email</label>
-            <Field name ='email' />
-            <ErrorMessage className='errormessage-login' component='p' name='email' />
-            <label htmlFor='password' className='label-form-login'>Contraseña</label>
-            <Field name ='password' type='password'/>
-            <ErrorMessage className='errormessage-login' component='p' name='password' />
+            <Form onSubmit={handleSubmit} className='my-8 p-4 flex flex-col'>
+            <label htmlFor='email'>Email</label>
+            <Field name ='email'/>
+            <ErrorMessage className='errormessage' component='p' name='email' />
+            <label htmlFor='password'>Contraseña</label>
+            <Field name ='password' type='password' />
+            <ErrorMessage className='errormessage' component='p' name='password' />
             <button 
               type='submit' 
-              className='btn-guardar-login' 
+              className='btn-primary hover:bg-slate-900 focus:outline-none disabled:bg-terceary flex justify-center' 
               disabled={isSubmitting}>{isSubmitting ? (
-                <AiOutlineLoading3Quarters className='btn-guardar-login-icon'/>
+                <AiOutlineLoading3Quarters className='animate-spin w-5 h-5 ' />
               ) : 'Acceder'}
             </button>
           </Form>

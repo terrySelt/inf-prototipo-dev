@@ -6,9 +6,7 @@ import { useEffect, useState } from 'react'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import { BsFillCheckCircleFill, BsFillCircleFill } from "react-icons/bs";
 import {Navigation} from '../components/Navigation'
-import '../css/FtForm.css'
-
-import React from 'react'
+import { NavigationWeb } from '../components/NavigationWeb'
 
 export function FtForm() {
   const {createFt, getFt, updateFt, users} = useMyContex()
@@ -61,49 +59,14 @@ export function FtForm() {
     })()
   }, [params.id]) 
 
-  const [style, setStyle] = useState('btn-prevent-ft')
-  const changeStyle = () =>{
-    let val = style
-    if(val==='btn-prevent-ft'){
-      setStyle('btn-prevent-ft2')
-      changeiconfalse()
-      changeicontrue()
-    }else{
-      setStyle('btn-prevent-ft')
-      changeiconfalse()
-      changeicontrue()
-    }
-  }
-  const [styleicontrue, setStyleiccontrue] = useState('icon-check-true')
-  const changeicontrue = () =>{
-    let val = styleicontrue
-    if(val==='icon-check-true'){
-      setStyleiccontrue('icon-check-true2')
-    }else{
-      setStyleiccontrue('icon-check-true')
-    }
-  }
-  const [styleiconfalse, setStyleicconfalse] = useState('icon-check-false')
-  const changeiconfalse = () =>{
-    let val=styleiconfalse
-    if(val==='icon-check-false'){
-      setStyleicconfalse('icon-check-false2')
-    }else{
-      setStyleicconfalse('icon-check-false')
-    }
-  }
-
   return (
-    <div className='container'>
+    <div className='bg-primary w-full h-auto flex flex-col justify-center items-center'>
+      <NavigationWeb />
       <Navigation />
-      <div className='container-form-ft2'>
-        <div className='header-form-ft'>
-          <div className='regresar-ft'>
-          <Link to='/computerlist' className='form-ft-regresar'>Regresar</Link>
-          </div>
-          <div>
-          <h3>Nueva Ficha técnica</h3>
-          </div>
+      <div className='bg-secondary w-5/6 h-auto rounded-md mt-4 mb-16 lg:w-1/4 lg:p-4 lg:mt-4 lg:mb-10'>
+        <div className='p-4 pb-0'>
+          <Link to='/computerlist' className='w-full text-cuarto flex justify-end font-semibold tracking-wider'>Regresar</Link>
+          <h3 className='text-white font-bold tracking-wider'>Nueva Ficha técnica</h3>
         </div>
         <Formik
           initialValues = {ft}
@@ -114,7 +77,8 @@ export function FtForm() {
             if (params.id){
               await updateFt(params.id, values)
             }else {
-              await createFt(values)
+              console.log(values)
+              //await createFt(values)
             } 
 
             actions.setSubmitting(false)
@@ -123,131 +87,177 @@ export function FtForm() {
           enableReinitialize
         >
           {({handleSubmit, isSubmitting}) => (
-            <Form onSubmit={handleSubmit} className='form-ft'>
-            <div className='data-ft'>
-                <label htmlFor='code' className='label-form-ft'>Código de la computadora</label>
-                <Field name ='code' disabled/>
-                <label htmlFor='date_admission' className='label-form-ft'>Fecha de date_admission</label>
-                <Field name ='date_admission'/>
-                <label htmlFor='lab' className='label-form-ft'>Laboratorio</label>
-                <Field name ='lab' disabled/>
-                <label htmlFor='brand' className='label-form-ft'>Marca</label>
-                <Field name ='brand' disabled/>
-                <label htmlFor='model' className='label-form-ft'>Model</label>
-                <Field name ='model' disabled/>
-                <label htmlFor='diagnosis' className='label-form-ft'>Diagnostico</label>
-                <Field name ='diagnosis' />
+            <Form onSubmit={handleSubmit} className='p-4 flex flex-col'>
+            <div>
+                <label className='text-sm font-medium' htmlFor='code'>Código de la computadora</label>
+                <Field className='w-full text-sm mb-2 h-7 p-2' name ='code' disabled/>
+                <label className='text-sm font-medium' htmlFor='date_admission'>Fecha de admisión</label>
+                <Field className='w-full text-sm mb-2 h-7 p-2' name ='date_admission'/>
+                <label className='text-sm font-medium' htmlFor='lab'>Laboratorio</label>
+                <Field className='w-full text-sm mb-2 h-7 p-2' name ='lab' disabled/>
+                <label className='text-sm font-medium' htmlFor='brand'>Marca</label>
+                <Field className='w-full text-sm mb-2 h-7 p-2' name ='brand' disabled/>
+                <label className='text-sm font-medium' htmlFor='model'>Model</label>
+                <Field className='w-full text-sm mb-2 h-7 p-2' name ='model' disabled/>
+                <label className='text-sm font-medium' htmlFor='diagnosis'>Diagnostico</label>
+                <Field className='w-full text-sm mb-2 h-7 p-2' name ='diagnosis' />
             </div>
-            <div className='div-prevent-ft'>
-              <label className='label-form-ft'>Mantenimiento preventivo
-              <Field type="checkbox" name="m_preventive" />
-              </label>
-              <div className='div-prevent-button-ft'>
-                <label className={style}>
-                <Field type="checkbox" name="disarmed_e" className='check' onClick={changeStyle}/>
-                <p>Desarmado del equipo</p>
-                <div className='div-iconsft'>
-                <BsFillCheckCircleFill className={styleicontrue}/>
-                <BsFillCircleFill className={styleiconfalse}/>
-                </div>
-                </label>
-                <label className={style}>
-                <Field type="checkbox" name="cleaning_tm" className='check' onClick={changeStyle}/>
-                <p>Limpieza de la tarjeta madre</p>
-                <div className='div-iconsft'>
-                <BsFillCheckCircleFill className={styleicontrue}/>
-                <BsFillCircleFill className={styleiconfalse}/>
-                </div>
-                </label>
-                <label className='btn-prevent-ft'>
-                <Field type="checkbox" name="cleaning_ram" className='check'/>
-                <p>Limpieza de la menoria RAM</p><BsFillCheckCircleFill className='icon-check-true'/><BsFillCircleFill className='icon-check-false'/>
-                </label>
-                <label className='btn-prevent-ft'>
-                <Field type="checkbox" name="cleaning_cc" className='check'/>
-                <p>Limpieza de cable y conectores</p><BsFillCheckCircleFill className='icon-check-true'/><BsFillCircleFill className='icon-check-false'/>
-                </label>
-                <label className='btn-prevent-ft'>
-                <Field type="checkbox" name="cleaning_tv" className='check'/>
-                <p>Limpieza de la tarjeta de video</p><BsFillCheckCircleFill className='icon-check-true'/><BsFillCircleFill className='icon-check-false'/>
-                </label>
-                <label className='btn-prevent-ft'>
-                <Field type="checkbox" name="cleaning_fa" className='check'/>
-                <p>Limpieza de la fuente de alimentación</p><BsFillCheckCircleFill className='icon-check-true'/><BsFillCircleFill className='icon-check-false'/>
-                </label>
-                <label className='btn-prevent-ft'>
-                <Field type="checkbox" name="change_pt" className='check'/>
-                <p>Cambio de pasta térmica</p><BsFillCheckCircleFill className='icon-check-true'/><BsFillCircleFill className='icon-check-false'/>
-                </label>
-                <label className='btn-prevent-ft'>
-                <Field type="checkbox" name="cleaning_q" className='check'/>
-                <p>Limpieza de coolers</p><BsFillCheckCircleFill className='icon-check-true'/><BsFillCircleFill className='icon-check-false'/>
-                </label>
-                <label className='btn-prevent-ft'>
-                <Field type="checkbox" name="cleaning_ld" className='check'/>
-                <p>Limpieza de lector de DVD</p><BsFillCheckCircleFill className='icon-check-true'/><BsFillCircleFill className='icon-check-false'/>
-                </label>
-                <label className='btn-prevent-ft'>
-                <Field type="checkbox" name="cleaning_tr" className='check'/>
-                <p>Limpieza de tarjeta de red</p><BsFillCheckCircleFill className='icon-check-true'/><BsFillCircleFill className='icon-check-false'/>
-                </label>
-                <label htmlFor='check_e' className='label-form-ft'>Verificación del equipo</label>
-                <Field name ='check_e' className='prevent-input'/>
+            <div className='mt-2 w-full h-auto flex items-start'>
+              <div className='pt-1'>
+                <Field className='inp-switch peer' type='checkbox' name="m_preventive" id='m_preventive' />
+                <label htmlFor='m_preventive' className='lbl-switch after:absolute after:content-[""] after:rounded-full after:h-5 after:w-5 after:bg-white after:top-[2px] after:left-[2px] after:transition-all peer-checked:bg-blue-600 peer-checked:after:translate-x-full'></label>
               </div>
+              <label className='text-sm font-medium mb-0 ml-4' htmlFor='m_preventive'>Mantenimiento preventivo</label>
             </div>
-            <div className='div-logical-ft'>
-              <label className='label-form-ft'>Mantenimiento lógico
-              <Field type="checkbox" name="m_logical" />
-              </label>
-              <div>
-                <label htmlFor='installation_so' className='label-form-ft'>Instalación del sistema operativo</label>
-                <Field name ='installation_so' />
-                <label htmlFor='installation_drivers' className='label-form-ft'>Instalación de drivers</label>
-                <Field name ='installation_drivers' />
-                <label htmlFor='installation_oficce' className='label-form-ft'>Instalación de office</label>
-                <Field name ='installation_oficce' />
-                <label htmlFor='activation_oficce' className='label-form-ft'>Activacón de office</label>
-                <Field name ='activation_oficce' />
-                <label htmlFor='installation_utility' className='label-form-ft'>Instalación de utilitarios</label>
-                <Field name ='installation_utility' />
-                <label htmlFor='installation_antivirus' className='label-form-ft'>Instalación de antivirus</label>
-                <Field name ='installation_antivirus' />
-                <label htmlFor='installation_as' className='label-form-ft'>Instalación de software de aplicación</label>
-                <Field name ='installation_as' />
-                <label htmlFor='update_so' className='label-form-ft'>Actualización del sistema operativo</label>
-                <Field name ='update_so' />
-                <label htmlFor='update_drivers' className='label-form-ft'>Actualización de drivers</label>
-                <Field name ='update_drivers' />
-                <label htmlFor='update_utility' className='label-form-ft'>Actualización de utilitarios</label>
-                <Field name ='update_utility' />
+
+            <div className='w-full h-auto mt-2'>
+
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="disarmed_e" id='disarmed_e'/>
+                <label htmlFor='disarmed_e' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Desarmado del equipo</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('disarmed_e') && document.getElementById('disarmed_e').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}
+                    </div>
+                  </div>
+                </label>
               </div>
-            </div>
-            <div className='div-corrective-ft'>
-              <label className='label-form-ft'>Mantenimiento correctivo
-              <Field type="checkbox" name="m_corrective" />
-              </label>
-              <div>
-                <label htmlFor='causes' className='label-form-ft'>Causas</label>
-                <Field name ='causes' />
-                <label htmlFor='conclusion' className='label-form-ft'>Conclusion</label>
-                <Field name ='conclusion' />
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="cleaning_tm" id='cleaning_tm'/>
+                <label htmlFor='cleaning_tm' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Limpieza de la tarjeta madre</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('cleaning_tm') && document.getElementById('cleaning_tm').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}         
+                    </div>
+                  </div>
+                </label>
               </div>
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="cleaning_ram" id='cleaning_ram'/>
+                <label htmlFor='cleaning_ram' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Limpieza de la menoria RAM</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('cleaning_ram') && document.getElementById('cleaning_ram').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}         
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="cleaning_cc" id='cleaning_cc'/>
+                <label htmlFor='cleaning_cc' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Limpieza de cable y conectores</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('cleaning_cc') && document.getElementById('cleaning_cc').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}         
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="cleaning_tv" id='cleaning_tv'/>
+                <label htmlFor='cleaning_tv' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Limpieza de la tarjeta de video</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('cleaning_tv') && document.getElementById('cleaning_tv').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}         
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="cleaning_fa" id='cleaning_fa'/>
+                <label htmlFor='cleaning_fa' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Limpieza de la fuente de alimentación</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('cleaning_fa') && document.getElementById('cleaning_fa').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}         
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="change_pt" id='change_pt'/>
+                <label htmlFor='change_pt' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Cambio de pasta térmica</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('change_pt') && document.getElementById('change_pt').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}         
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="cleaning_q" id='cleaning_q'/>
+                <label htmlFor='cleaning_q' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Limpieza de coolers</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('cleaning_q') && document.getElementById('cleaning_q').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}         
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="cleaning_ld" id='cleaning_ld'/>
+                <label htmlFor='cleaning_ld' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Limpieza de lector de DVD</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('cleaning_ld') && document.getElementById('cleaning_ld').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}         
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="cleaning_tr" id='cleaning_tr'/>
+                <label htmlFor='cleaning_tr' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Limpieza de tarjeta de red</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('cleaning_tr') && document.getElementById('cleaning_tr').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}         
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <label htmlFor='check_e' className='text-sm font-medium'>Verificación del equipo</label>
+              <Field name ='check_e' className='w-full text-sm mb-2 h-7 p-2'/> 
+
             </div>
-            <label htmlFor='date_departure' className='label-form-ft'>Fecha de salida</label>
-            <Field name ='date_departure'  placeholder='fecha actual' disabled/>
-            <label htmlFor='responsible' className='label-form-ft'>Responsable del trabajo</label>
-            <Field name ='responsible' as='select' className='select-form-ft' defaultValue={'DEFAULT'}>
-            <option value="DEFAULT" disabled>Seleccione un auxiliar</option>
-              {users.map(user => (
-                <option key={user._id}>{user.name}</option>
-              ))}
-            </Field>
-            <ErrorMessage className='errormessage-ft' component='p' name='responsible' />
+        
+            <div className='mt-2 w-full h-auto flex items-start'>
+              <div className='pt-1'>
+                <Field className='inp-switch peer' type='checkbox' name="m_logical" id='m_logical' />
+                <label htmlFor='m_logical' className='lbl-switch after:absolute after:content-[""] after:rounded-full after:h-5 after:w-5 after:bg-white after:top-[2px] after:left-[2px] after:transition-all peer-checked:bg-blue-600 peer-checked:after:translate-x-full'></label>
+              </div>
+              <label className='text-sm font-medium mb-0 ml-4' htmlFor='m_logical'>Mantenimiento lógico</label>
+            </div>
+               
+            <div className='w-full h-auto mt-2'>
+               
+            
+              <div className='w-full h-auto flex mb-1'>
+                <Field className='inp-switch peer' type="checkbox" name="installation_so" id='installation_so'/>
+                <label htmlFor='installation_so' className='lbl-but peer-checked:bg-blue-600'>
+                  <div className='flex w-full h-full'>
+                    <p className='text-sm pl-2 font-medium w-5/6 h-full flex items-center leading-tight'>Limpieza de coolers</p>
+                    <div className='w-1/6 h-full flex items-center justify-end pr-2'>
+                      {(document.getElementById('installation_so') && document.getElementById('installation_so').checked) ? <BsFillCheckCircleFill className='text-white'/> : <BsFillCircleFill className='text-white'/>}         
+                    </div>
+                  </div>
+                </label>
+              </div>
+            
+            </div>           
+      
+
             <button 
               type='submit' 
-              className='btn-guardar-ft' 
+              className='btn-primary hover:bg-slate-900 focus:outline-none disabled:bg-terceary flex justify-center' 
               disabled={isSubmitting}>{isSubmitting ? (
-                <AiOutlineLoading3Quarters className='btn-guardar-ft-icon'/>
+                <AiOutlineLoading3Quarters className='animate-spin w-5 h-5 '/>
               ) : 'Guardar'}
             </button>
           </Form>

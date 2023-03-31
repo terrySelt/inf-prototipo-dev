@@ -1,54 +1,75 @@
-:root {
-    /*Paleta de colores claros*/
-    --white--l: #ffffff;
-    --dark--gray--l: #746f6b;
-    --light--gray--l: #c6c2b9;
-    --text--input--field: #f5f3f4;
-    --text--input--field2: #f7f7f7;
-    --black--l: #030708;
-
-    /*paleta de colores oscuro*/
-    --white--d: #f8f8f8;
-    --black--d: #080808;
-    --light--gray--d: #6a6a6a;
-    --dark--gray--d: #393939;
-
-
-    /*Paleta de colores de Manjaro*/
-    --green--m: #34be5b;
-    --black--m: #111111;
-    --light--gray--m: #8c8c8c;
-    --white--m: #fcfefd;
-    --dark--gray--m: #444444; 
-
-    --sm: 14px;
-    --md: 16px;
-    --lg: 18px;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-size: 62.5%;
-    font-family: 'Quicksand', sans-serif;
-    background: var(--black--d);
+    @apply font-Quicksand
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: auto;
+label {
+    @apply text-base text-white font-semibold mb-1 tracking-wider
 }
 
-
-li{
-    list-style: none;
+input{
+    @apply mb-4 rounded-sm h-8 outline-none font-sans p-3
 }
 
-a{
-    text-decoration: none;
+.errormessage{
+    @apply text-quinto mb-2
+}
+
+.btn-primary{
+    @apply p-2 bg-sexto text-white rounded-md mt-2 font-semibold tracking-wider cursor-pointer
+}
+
+.btn-primary-new{
+    @apply p-4 bg-secondary text-white rounded-md font-semibold tracking-wider cursor-pointer
+}
+
+.btn-secondary{
+    @apply bg-terceary text-white p-1 rounded-md cursor-pointer w-1/2 h-auto text-sm
+}
+
+.btn-terceary{
+    @apply py-2 rounded-md w-20 outline-none font-medium text-sm cursor-pointer shadow-md 
+}
+
+.link{
+    @apply flex justify-center items-center hover:bg-terceary text-white text-xl px-4
+}
+
+.nav-userweb{
+    @apply bg-terceary absolute top-24 right-24 rounded-lg p-4 
+}
+
+.notshowweb{
+    @apply invisible absolute
+}
+
+.nav-usernavigation{
+    @apply bg-terceary absolute bottom-16 right-4 rounded-lg p-4
+}
+
+.notshownavigation{
+    @apply invisible absolute
+}
+
+.showpassword{
+    @apply flex flex-col
+}
+
+.passworhidden{
+    @apply hidden
+}
+
+.lbl-switch{
+    @apply inline-block w-11 h-6 bg-gray-700 rounded-full relative cursor-pointer
+}
+
+.inp-switch{
+    @apply hidden
+}
+
+.lbl-but{
+    @apply inline-block w-full h-9 bg-gray-700 rounded-md cursor-pointer
 }

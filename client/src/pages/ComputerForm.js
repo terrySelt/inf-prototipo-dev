@@ -5,7 +5,7 @@ import {useNavigate, useParams, Link} from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import { Navigation } from '../components/Navigation'
-import '../css/ComputerForm.css'
+import { NavigationWeb} from '../components/NavigationWeb'
 
 
 export function ComputerForm() {
@@ -33,12 +33,13 @@ export function ComputerForm() {
   }, [params.id])
 
   return (
-    <div className='container'>
+    <div className='bg-primary w-full h-auto flex flex-col justify-center items-center'>
+      <NavigationWeb />
       <Navigation />
-      <div className='container-form-computer2'>
-        <div className='header-form-computer'>
-          <h3>Nueva Computadora</h3>
-          <Link to='/computerlist' className='form-computer-regresar'>Regresar</Link>
+      <div className=' bg-secondary w-5/6 h-auto rounded-md mt-4 mb-16 lg:w-1/4 lg:p-4 lg:mt-4 lg:mb-10'>
+        <div className='p-4 pb-0'>
+          <Link to='/computerlist' className='w-full text-cuarto flex justify-end font-semibold tracking-wider'>Regresar</Link>
+          <h3 className='text-white font-bold tracking-wider'>Nueva Computadora</h3>
         </div>
         <Formik
           initialValues={computer}
@@ -66,47 +67,48 @@ export function ComputerForm() {
           enableReinitialize
           >
           {({handleSubmit, isSubmitting}) => (
-            <Form className='form-computer' onSubmit={handleSubmit}>
-              <label htmlFor='code' className='label-form-computer'>Code</label>
+            <Form className='p-4 flex flex-col' onSubmit={handleSubmit}>
+              <label htmlFor='code' >Code</label>
               <Field name='code' />
-              <ErrorMessage component='p' className='errormessage-computer' name='code' />
-              <label htmlFor='lab' className='label-form-computer'>Laboratorio</label>
-              <Field name='lab' as='select' className='select-form-computer' defaultValue={'DEFAULT'}>
+              <ErrorMessage component='p' className='errormessage' name='code' />
+              <label htmlFor='lab'>Laboratorio</label>
+              <Field className='mb-4 rounded-sm h-8 outline-none font-sans' name='lab' as='select' defaultValue={'DEFAULT'}>
               <option value="DEFAULT" disabled>Seleccione el laboratorio</option>
                 {labs.map(lab => (
                   <option key={lab._id}>{lab.name}</option>
                 ))}
               </Field>
-              <ErrorMessage component='p' className='errormessage-computer' name='lab' />
-              <label htmlFor='model' className='label-form-computer'>Modelo</label>
-              <Field name='model' as='select' className='select-form-computer' defaultValue={'DEFAULT'}>
+              <ErrorMessage component='p' className='errormessage' name='lab' />
+              <label htmlFor='model' >Modelo</label>
+              <Field className='mb-4 rounded-sm h-8 outline-none font-sans' name='model' as='select' defaultValue={'DEFAULT'}>
               <option value="DEFAULT" disabled>Selecciona el modelo</option>
                 <option>Desktop</option>
                 <option>Laptop</option>
               </Field>
-              <ErrorMessage component='p' className='errormessage-computer' name='model' />
-              <label htmlFor='brand' className='label-form-computer'>Marca</label>
+              <ErrorMessage component='p' className='errormessage' name='model' />
+              <label htmlFor='brand' >Marca</label>
               <Field name='brand' />
-              <ErrorMessage component='p' className='errormessage-computer' name='brand' />
-              <label htmlFor='processor' className='label-form-computer'>Procesador</label>
+              <ErrorMessage component='p' className='errormessage' name='brand' />
+              <label htmlFor='processor' >Procesador</label>
               <Field name='processor' />
-              <ErrorMessage component='p' className='errormessage-computer' name='processor' />
-              <label htmlFor='memory' className='label-form-computer'>Memoria Ram</label>
+              <ErrorMessage component='p' className='errormessage' name='processor' />
+              <label htmlFor='memory'>Memoria Ram</label>
               <Field name='memory'/>
-              <ErrorMessage component='p' className='errormessage-computer' name='memory' />
-              <label htmlFor='disk' className='label-form-computer'>Disco Duro</label>
+              <ErrorMessage component='p' className='errormessage' name='memory' />
+              <label htmlFor='disk'>Disco Duro</label>
               <Field name='disk' />
-              <ErrorMessage component='p' className='errormessage-computer' name='disk' />
-              <label htmlFor='graphic' className='label-form-computer'>Tarjeta Grafica</label>
+              <ErrorMessage component='p' className='errormessage' name='disk' />
+              <label htmlFor='graphic'>Tarjeta Grafica</label>
               <Field name='graphic' />
-              <ErrorMessage component='p' className='errormessage-computer' name='graphic' />
-              <label htmlFor='system' className='label-form-computer'>Sistema Operativo</label>
+              <ErrorMessage component='p' className='errormessage' name='graphic' />
+              <label htmlFor='system'>Sistema Operativo</label>
               <Field name='system' />
-              <ErrorMessage component='p' className='errormessage-computer' name='system' />
-              <button type='submit' className='btn-guardar-computer' disabled={isSubmitting}>
+              <ErrorMessage component='p' className='errormessage' name='system' />
+              <button type='submit' className='btn-primary hover:bg-slate-900 focus:outline-none disabled:bg-terceary flex justify-center'
+               disabled={isSubmitting}>
                 {isSubmitting ? (
-                  <AiOutlineLoading3Quarters className='btn-guardar-computer-icon'/>
-                ) : 'Save'}
+                  <AiOutlineLoading3Quarters className='animate-spin w-5 h-5 '/>
+                ) : 'Guardar'}
               </button>
           </Form>
           )}

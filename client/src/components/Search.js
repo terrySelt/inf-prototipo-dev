@@ -2,7 +2,6 @@ import { useMyContex } from '../context/prototypeContext';
 import {Formik, Form, Field} from 'formik'
 import { useNavigate } from 'react-router-dom';
 import { ImSearch } from "react-icons/im";
-import '../css/search.css'
 
 export function Search(hola) {
   const { code, setCode } = useMyContex()
@@ -14,8 +13,7 @@ export function Search(hola) {
   }
 
   return (
-    <div className='container'>
-      <div className='container-form-search'>
+    <div className='bg-secondary my-5 w-5/6 h-auto rounded-md lg:w-1/4 lg:p-2 z-0'>
         <Formik
           initialValues={code}
           onSubmit = { async (values,actions) => {
@@ -24,22 +22,21 @@ export function Search(hola) {
         >
           
           {({handleSubmit, isSubmitting}) => (
-            <Form onSubmit={handleSubmit} className='form-search'>
-            <label htmlFor='code' className='label-form-search'>Codigo</label>
-            <div className='search-div'>
-            <Field name ='code' placeholder='Busqueda' type='text' onChange={searchchart} value={code}/>
-            <ImSearch className='search-icon'/>
+            <Form onSubmit={handleSubmit} className='m-6'>
+            <label htmlFor='code'>Codigo</label>
+            <div className='mt-1 relative rounded-sm h-8 mb-2'>
+            <Field className='w-full bg-cover' name ='code' placeholder='Busqueda' type='text' onChange={searchchart} value={code}/>
+            <ImSearch className='absolute top-1 right-2 text-2xl text-end text-stone-400'/>
             </div>
             <button
               type='submit'  
-              className='btn-guardar-search' 
+              className='btn-primary w-full' 
               >
                 Scannear 
             </button>
           </Form>
           )}
         </Formik>
-      </div>
     </div>
   )
 }

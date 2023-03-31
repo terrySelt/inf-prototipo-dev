@@ -5,7 +5,7 @@ import { useNavigate, useParams, Link} from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import {Navigation} from '../components/Navigation'
-import '../css/UserForm.css'
+import { NavigationWeb } from '../components/NavigationWeb'
 
 export function UserForm() {
   const {createUser, getUser, updateUser} = useMyContex()
@@ -49,7 +49,7 @@ export function UserForm() {
   },[params.id])
 
   const stylechange = () => {
-    refStyle.current.className = 'showimput-password'
+    refStyle.current.className = 'showpassword'
   }
 
   const passwordvalidation = () => {
@@ -60,12 +60,13 @@ export function UserForm() {
   }
 
   return (
-    <div className='container'>
+    <div className='bg-primary w-full h-full flex flex-col justify-center items-center lg:justify-start'>
+      <NavigationWeb />
       <Navigation />
-      <div className='container-form-user2'>
-        <div className='header-form-user'>
-          <h3>Nuevo usuario</h3>
-          <Link to='/userlist' className='form-user-regresar'>Regresar</Link>
+      <div className='bg-secondary w-5/6 h-auto rounded-md mt-4 mb-16 lg:w-1/4 lg:p-4 lg:mt-4 lg:mb-10'>
+        <div className='p-4 pb-0'>
+          <Link to='/userlist' className='w-full text-cuarto flex justify-end font-semibold tracking-wider'>Regresar</Link>
+          <h3 className='text-white font-bold tracking-wider'>Nuevo usuario</h3>
         </div>
         <Formik
           initialValues={user}
@@ -94,48 +95,47 @@ export function UserForm() {
           >
           {
             ({handleSubmit, setFieldValue, isSubmitting}) => (
-              <Form className='form-user' onSubmit={handleSubmit}>
-
-                <label htmlFor='name' className='label-form-user'>Name</label>
+              <Form className='p-4 flex flex-col' onSubmit={handleSubmit}>
+                <label htmlFor='name'>Name</label>
                 <Field name='name' />
-                <ErrorMessage className='errormessage-user' component='p' name='name' />
-                <label htmlFor='roles' className='label-form-user'>Estatus</label>
-                <Field className='select-form-user' name='roles' as='select' defaultValue={'DEFAULT'}>
+                <ErrorMessage className='errormessage' component='p' name='name' />
+                <label htmlFor='roles'>Estatus</label>
+                <Field className='mb-4 rounded-sm h-8 outline-none font-sans' name='roles' as='select' defaultValue={'DEFAULT'}>
                 <option value="DEFAULT" disabled>Seleccione el tipo de ususario</option>
-                  <option className='option-form-user' value='user'>user</option>
-                  <option className='option-form-user' value='admin'>admin</option>
+                  <option value='user'>user</option>
+                  <option value='admin'>admin</option>
                 </Field>
-                <ErrorMessage className='errormessage-user' component='p' name='roles' />
-                <label htmlFor='email' className='label-form-user'>Email</label>
+                <ErrorMessage className='errormessage' component='p' name='roles' />
+                <label htmlFor='email'>Email</label>
                 <Field name='email' />
-                <ErrorMessage className='errormessage-user' component='p' name='email' />
+                <ErrorMessage className='errormessage' component='p' name='email' />
                 <div>
                   {(!params.id) ? 
-                  (<div>
-                    <label htmlFor='password' className='label-form-user'>Contraseña</label>
-                    <Field name='password' className='password-register'/>
-                    <ErrorMessage className='errormessage-user' component='p' name='password' />             
+                  (<div className='w-full'>
+                    <label htmlFor='password'>Contraseña</label>
+                    <Field className='w-full' name='password'/>
+                    <ErrorMessage className='errormessage' component='p' name='password' />             
                   </div>):
                   (<div>
-                    <label htmlFor='password' className='label-password' onClick={stylechange}>Cambiar contraseña</label>
-                    <div className='password-myacount' ref={refStyle}>
-                      <label htmlFor='oldpassword' className='label-form-user-password' >Contraseña Actual</label>
-                      <Field name='oldpassword' className='notimput-password'/>
-                      <ErrorMessage className='errormessage-user' component='p' name='oldpassword' />
-                      <label htmlFor='newpassword' className='label-form-user-password' >Nueva contraseña</label>
-                      <Field name='newpassword' className='notimput-password'/>
-                      <ErrorMessage className='errormessage-user' component='p' name='newpassword' />
-                      <label htmlFor='confirmpassword' className='label-form-user-password' >Confirmar nueva contraseña</label>
-                      <Field name='confirmpassword' className='notimput-password'/>
-                      <ErrorMessage className='errormessage-user' component='p' name='confirmpassword' />
+                    <label className='text-blue-900' htmlFor='password' onClick={stylechange}>Cambiar contraseña</label>
+                    <div className='passworhidden' ref={refStyle}>
+                      <label className='text-blue-800' htmlFor='oldpassword' >Contraseña Actual</label>
+                      <Field name='oldpassword'/>
+                      <ErrorMessage className='errormessage' component='p' name='oldpassword' />
+                      <label className='text-blue-800' htmlFor='newpassword' >Nueva contraseña</label>
+                      <Field name='newpassword'/>
+                      <ErrorMessage className='errormessage' component='p' name='newpassword' />
+                      <label className='text-blue-800' htmlFor='confirmpassword' >Confirmar nueva contraseña</label>
+                      <Field name='confirmpassword'/>
+                      <ErrorMessage className='errormessage' component='p' name='confirmpassword' />
                     </div>
                   </div>)}
                 </div>
-                <label htmlFor='image' className='label-form-user'>Imagen</label>
-                <input type='file' name='image' className='input-image-user' onChange={(e) => setFieldValue('image', e.target.files[0])}/>
-                <button className='btn-guardar-user' type='submit' disabled={isSubmitting}>
+                <label htmlFor='image'>Imagen</label>
+                <Field className='p-1 h-9 block w-full text-sm text-gray-900 border border-gray-300 rounded-sm cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400' type='file' name='image' onChange={(e) => setFieldValue('image', e.target.files[0])}/>
+                <button className='btn-primary hover:bg-slate-900 focus:outline-none disabled:bg-terceary flex justify-center' type='submit' disabled={isSubmitting}>
                   {isSubmitting ? (
-                    <AiOutlineLoading3Quarters className='btn-guardar-user-icon'/>
+                    <AiOutlineLoading3Quarters className='animate-spin w-5 h-5 '/>
                   ) : 'Save'}
                 </button>
               </Form>

@@ -1,6 +1,6 @@
 import QrReader from 'react-qr-scanner'
-import '../css/scanner.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { Head } from '../components/Head'
 
 export function Scanner() {
 
@@ -24,11 +24,12 @@ const handleError = (error) => {
   console.log(error);
 }; 
   return (
-    <div className='container'>
-      <div className='container-scanner'>
-        <div className='header-scanner'>
-          <h3>Scanner</h3>
-          <Link to='/ComputerList' className='scanner-regresar'>Regresar</Link>
+    <div className='bg-primary w-full h-screen flex flex-col justify-start items-center lg:justify-start'>
+      <Head />
+      <div className='bg-secondary w-5/6 h-auto rounded-md mt-16 mb-16 flex flex-col justify-center items-center lg:w-1/4 lg:p-4 lg:mt-16 lg:mb-10'>
+        <div className='p-4 pb-0 w-full'>
+          <Link to='/ComputerList' className='w-full text-cuarto flex justify-end font-semibold tracking-wider'>Regresar</Link>
+          <h3 className='text-white font-bold tracking-wider'>Scanner</h3>
         </div>
         <QrReader
         delay={delay}
