@@ -15,12 +15,12 @@ export function ComputerForm() {
 
   const [computer, setComputer] = useState({
     code: '',
-    brand: undefined,
-    processor: undefined,
-    memory: undefined,
-    disk: undefined,
-    graphic: undefined,
-    system: undefined
+    brand: '',
+    processor: '',
+    memory: '',
+    disk: '',
+    graphic: '',
+    system: ''
   })
 
   useEffect(() => {

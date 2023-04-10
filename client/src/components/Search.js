@@ -26,7 +26,7 @@ export function Search(hola) {
             <label htmlFor='code'>Codigo</label>
             <div className='mt-1 relative rounded-sm h-8 mb-2'>
             <Field className='w-full bg-cover' name ='code' placeholder='Busqueda' type='text' onChange={searchchart} value={code}/>
-            <ImSearch className='absolute top-1 right-2 text-2xl text-end text-stone-400'/>
+            <ImSearch className='absolute top-2 right-2 text-2xl text-end text-stone-400'/>
             </div>
             <button
               type='submit'  

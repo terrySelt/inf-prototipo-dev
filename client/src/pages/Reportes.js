@@ -55,7 +55,7 @@ export function Reportes() {
             showTimeInput
             className='w-full'
             />
-            <label name='dateend'>Fecha de inicio</label>
+            <label name='dateend'>Fecha final</label>
             <DatePicker
             name ='dateend'
             selected={startDateend}

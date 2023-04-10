@@ -140,7 +140,7 @@ export const ProtoProvider = ({children}) => {
     const deleteFt = async id => {
         const res = await deleteFtRequest(id)
         if (res.status === 204) {
-            setFts(labs.filter((ft) => ft._id !==id ))
+            setFts(fts.filter((ft) => ft._id !==id ))
         }
     }
     

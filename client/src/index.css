@@ -7,11 +7,11 @@ body{
 }
 
 label {
-    @apply text-base text-white font-semibold mb-1 tracking-wider
+    @apply text-base text-white font-semibold tracking-wider
 }
 
 input{
-    @apply mb-4 rounded-sm h-8 outline-none font-sans p-3
+    @apply mb-4 rounded-sm h-8 outline-none font-sans p-3 mt-1
 }
 
 .errormessage{
@@ -71,5 +71,25 @@ input{
 }
 
 .lbl-but{
-    @apply inline-block w-full h-9 bg-gray-700 rounded-md cursor-pointer
+    @apply inline-block w-full h-full bg-gray-700 rounded-md cursor-pointer 
+}
+
+.ftvisivility{
+    @apply w-full h-12 flex mb-1
+}
+
+.ftvisivility2{
+    @apply block
+}
+
+.ftvisivility3{
+    @apply flex flex-col
+}
+
+.ftnovisivility{
+    @apply hidden
+}
+
+.ftlogicv{
+    @apply w-full h-auto
 }

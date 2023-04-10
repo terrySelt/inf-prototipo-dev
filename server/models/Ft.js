@@ -76,50 +76,63 @@ const ftSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    installation_so1:{
+        type: Boolean
+    },
     installation_so:{
         type: String,
         trim: true
     },
+    installation_drivers1:{
+        type: Boolean
+    },
     installation_drivers:{
         type: String,
         trim: true
+    },
+    installation_oficce1:{
+        type: Boolean
     },
     installation_oficce:{
         type: String,
         trim: true
     },
     activation_oficce:{
-        type: String,
-        trim: true
+        type: Boolean
+    },
+    installation_utility1:{
+        type: Boolean
     },
     installation_utility:{
         type: String,
         trim: true
     },
+    installation_antivirus1:{
+        type: Boolean
+    },
     installation_antivirus:{
         type: String,
         trim: true
+    },
+    installation_as1:{
+        type: Boolean
     },
     installation_as:{
         type: String,
         trim: true
     },
     update_so:{
-        type: String,
-        trim: true
+        type: Boolean
     },
     update_drivers:{
-        type: String,
-        trim: true
+        type: Boolean
     },
     update_utility:{
-        type: String,
-        trim: true
+        type: Boolean
     },
     date_departure:{
         type: Date,
         trim: true,
-        default: Date.now
     },
     responsible: {
         type: String,
