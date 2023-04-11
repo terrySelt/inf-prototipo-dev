@@ -6,7 +6,10 @@ import { ComputerInfoCard} from "./pages/ComputerInfoCard"
 import { Scanner } from "./pages/Scanner"
 import { Reportes } from "./pages/Reportes"
 import { MyAcount } from "./pages/MyAcount"
-import { recoveryPassword } from "./pages/recoveryPassword"
+import { RecoveryPassword } from "./pages/RecoveryPassword"
+import { EmailSend } from "./pages/EmailSend"
+import { ChangePassword } from "./pages/ChangePassword"
+import { PasswordChanged } from "./pages/PasswordChanged"
 import {Routes, Route} from "react-router-dom"
 import { ProtoProvider } from "./context/prototypeContext"
 import {Toaster} from 'react-hot-toast'
@@ -17,7 +20,10 @@ function App() {
     <ProtoProvider>
       <Routes>
         <Route path = '/' element = {<LoginPage />} />
-        <Route path = '/RecoveryPassword' element = {<recoveryPassword />} />
+        <Route path='/RecoveryPassword' element = {<RecoveryPassword />} />
+        <Route path='/EmailSend' element = {<EmailSend />} />
+        <Route path='/ChangePassword' element = {<ChangePassword />} />
+        <Route path='/PasswordChanged' element = {<PasswordChanged />} />
         <Route path='/MyAcount' element = {<MyAcount />} />
         <Route path = '/Reportes' element = {<Reportes />} />
 

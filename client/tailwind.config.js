@@ -18,14 +18,16 @@ module.exports = {
         'quinto':'#DC2626',
         'sexto': '#030708',
         'septimo':'#FF0000',
-        'octavo':'#999999'
+        'octavo':'#999999',
+        'noveno': '#020617'
       }),
       textColor:{
         'terceary':'#111827',
         'cuarto':'#cbd5e0',
         'quinto':'#DC2626',
         'septimo':'#FF0000',
-        'octavo':'#999999'
+        'octavo':'#999999',
+        'noveno': '#020617'
       },
       fontFamily:{
         Quicksand:['Quicksand', 'sans-serif']

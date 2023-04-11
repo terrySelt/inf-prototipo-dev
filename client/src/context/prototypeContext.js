@@ -5,7 +5,7 @@ import { createComputerRequest, deleteComputerRequest, getComputerRequest, getCo
 import { createLabRequest, deleteLabRequest, getLabRequest, getLabsRequest, updateLabRequest } from '../api/labs'
 import { getUsersRequest, createUserRequest, deleteUserRequest, getUserRequest, updateUserRequest } from '../api/users'
 import { getFtsRequest, createFtRequest, deleteFtRequest, getFtRequest, updateFtRequest, getFtsReportes} from '../api/fts' 
-import { loginRequest } from '../api/login'
+import { loginRequest, recoveryRequest, changepasswordRequest } from '../api/login'
 
 const notify = (msj) => toast(msj)
 
@@ -180,19 +180,45 @@ export const ProtoProvider = ({children}) => {
 
             const token = res.data.token
             document.cookie = `token=${token}; max-age=${3600*24}; path=/; samesite=strict`
-            console.log(document.cookie)
 
             setUser(res.data.userFound)
             setToken(token)
-            
-            console.log(res)
 
         } catch (error) {
             notify("No autorizado")
             throw error
         }
         
-        //setFts([...fts, res.data])
+    }
+
+    /*-----------------recovery-------------------------------------------------------- */
+
+    const recovery = async (email) => {
+        try {
+            const res = await recoveryRequest(email)
+
+            if(res.status !== 200) throw 'no funciona'
+
+        } catch (error) {
+            notify("No autorizado")
+            throw error
+        }
+        
+    }
+
+    /*-----------------changepassword-------------------------------------------------------- */
+
+    const changepassword = async (token, newpassword) => {
+        try {
+            const res = await changepasswordRequest(token, newpassword)
+
+            if(res.status !== 200) throw 'no funciona'
+
+        } catch (error) {
+            notify("No se actualizo la contraseña")
+            throw error
+        }
+        
     }
 
     useEffect(() => {
@@ -233,7 +259,9 @@ export const ProtoProvider = ({children}) => {
         getReportes,
         user,
         token,
-        login
+        login,
+        recovery,
+        changepassword
         }}>
             {children}
         </protoContext.Provider>

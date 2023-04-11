@@ -4,6 +4,7 @@ import {useMyContex} from '../context/prototypeContext'
 import { useNavigate } from 'react-router-dom'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import logo from '../assets/images/2.png'
+import { Link } from "react-router-dom"
 
 export function LoginPage() {
 
@@ -36,7 +37,7 @@ export function LoginPage() {
         >
 
           {({handleSubmit, isSubmitting}) => (
-            <Form onSubmit={handleSubmit} className='my-8 p-4 flex flex-col'>
+            <Form onSubmit={handleSubmit} className='my-4 p-4 flex flex-col'>
             <label htmlFor='email'>Email</label>
             <Field name ='email'/>
             <ErrorMessage className='errormessage' component='p' name='email' />
@@ -50,6 +51,7 @@ export function LoginPage() {
                 <AiOutlineLoading3Quarters className='animate-spin w-5 h-5 ' />
               ) : 'Acceder'}
             </button>
+            <Link to='/RecoveryPassword' className='text-md text-blue-800 text-center m-4'>Olvidaste tu contraseña?</Link>
           </Form>
           )}
         </Formik>

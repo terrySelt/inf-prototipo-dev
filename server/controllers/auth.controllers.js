@@ -33,7 +33,7 @@ export const recovery = async (req, res, next) => {
 
         const token = jwt.sign({id: userFound._id}, SECRETRECOVERY, {expiresIn: '15min'})
 
-        const link = `http://myfrontend.com/recovery?token=${token}`
+        const link = `http://localhost:3000/changepassword?token=${token}`
 
         try {
           const update = await User.findByIdAndUpdate(userFound._id, {recoveryToken: token}, { new: true})
