@@ -1,10 +1,10 @@
 import {useState, createContext, useContext, useEffect} from 'react'
 import toast from 'react-hot-toast'
 
-import { createComputerRequest, deleteComputerRequest, getComputerRequest, getComputersRequest, updateComputerRequest } from '../api/computers'
+import { createComputerRequest, deleteComputerRequest, restoreComputerRequest, getComputerRequest, getComputersRequest, updateComputerRequest } from '../api/computers'
 import { createLabRequest, deleteLabRequest, getLabRequest, getLabsRequest, updateLabRequest } from '../api/labs'
 import { getUsersRequest, createUserRequest, deleteUserRequest, getUserRequest, updateUserRequest } from '../api/users'
-import { getFtsRequest, createFtRequest, deleteFtRequest, getFtRequest, updateFtRequest, getFtsReportes} from '../api/fts' 
+import { getFtsRequest, createFtRequest, deleteFtlogicalRequest, restoreFtlogicalRequest, getFtRequest, updateFtRequest, getFtsReportes} from '../api/fts' 
 import { loginRequest, recoveryRequest, changepasswordRequest } from '../api/login'
 
 const notify = (msj) => toast(msj)
@@ -105,14 +105,19 @@ export const ProtoProvider = ({children}) => {
         }
     }
 
-    const deleteComputer = async (id) => {  
-        const res = await deleteComputerRequest(id)
-        if(res.status === 204) {
-            setComputers(computers.filter((computer) => computer._id !==id))
-            await getLabs()
-        }
+    const deleteComputer = async (id, state) => {  
+        const res = await deleteComputerRequest(id, state)
+        await getLabs()
+        await getComputers()
     }
     
+    const restoreComputer = async (id, state) => {
+        const res = await restoreComputerRequest(id, state)
+        await getLabs()
+        await getComputers()
+        
+    }
+
     const getComputer = async (id) => {
         const res = await getComputerRequest(id)
         return res.data
@@ -137,11 +142,27 @@ export const ProtoProvider = ({children}) => {
         setFts([...fts, res.data])
     }
     
-    const deleteFt = async id => {
+    /* const deleteFt = async id => {
         const res = await deleteFtRequest(id)
         if (res.status === 204) {
             setFts(fts.filter((ft) => ft._id !==id ))
         }
+    } */
+
+    const deleteFt = async (id, state) => {
+        const res = await deleteFtlogicalRequest(id, state)
+        await getFts()
+        //if (res.status === 204) {
+          //  setFts(fts.filter((ft) => ft._id !==id ))
+        //}
+    }
+
+    const restoreFt = async (id, state) => {
+        const res = await restoreFtlogicalRequest(id, state)
+        await getFts()
+        //if (res.status === 204) {
+          //  setFts(fts.filter((ft) => ft._id !==id ))
+        //}
     }
     
     const getFt = async id => {
@@ -245,12 +266,14 @@ export const ProtoProvider = ({children}) => {
         getComputers,
         createComputer,
         deleteComputer,
+        restoreComputer,
         getComputer,
         updateComputer,
         fts,
         getFts,
         createFt,
         deleteFt,
+        restoreFt,
         getFt,
         updateFt,
         code,

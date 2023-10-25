@@ -6,22 +6,43 @@ import { NavigationWeb } from '../components/NavigationWeb'
 
 export function ComputerInfoCard() {
 
-  const {deleteComputer} = useMyContex()
+  const {deleteComputer, restoreComputer} = useMyContex()
   const navigate = useNavigate()
   const params = useParams()
 
   const id = params.id
+  const state = params.state
+
+  let newstatus = {}
+
+  if(state==='true'){
+    newstatus = {
+      state:false
+    }  
+  }else{
+    newstatus = {
+      state:true
+    }
+  }
 
   const handleDelete = (id) => {
     toast((t) => (
       <div>
-        <p className='text-white'>Seguro quieres eliminar la computadora? <strong>{id}</strong> </p>
+        {state === 'true' ? <p className='text-white'>Seguro quieres restaurar la computadora? <strong>{id}</strong> </p>:
+        <p className='text-white'>Seguro quieres eliminar la computadora? <strong>{id}</strong> </p>}
         <div className='w-full flex justify-around pt-2'>
-          <button className='btn-terceary bg-septimo text-white' onClick={() => {
-            deleteComputer(id)
-            toast.dismiss(t.id)
-            navigate('/computerlist')
-            }}>Eliminar</button>
+          {
+            state === 'true' ? <button className='btn-terceary bg-septimo text-white' onClick={() =>{
+              restoreComputer(id,newstatus)
+              toast.dismiss(t.id)
+              navigate('/computerlist')
+            }}>Restaurar</button>:
+            <button className='btn-terceary bg-septimo text-white' onClick={() => {
+              deleteComputer(id, newstatus)
+              toast.dismiss(t.id)
+              navigate('/computerlist')
+              }}>Eliminar</button>
+          }
           <button className='btn-terceary text-octavo bg-white' onClick={() => toast.dismiss(t.id)}>Cancelar</button>
         </div>
       </div>
@@ -79,7 +100,9 @@ export function ComputerInfoCard() {
           </div>
           <div className='w-full flex justify-around mt-3'>
             <button className='btn-terceary bg-terceary text-octavo border-2 border-octavo' onClick={() => navigate(`/computers/${id}`)}>Actualizar</button>
-            <button className='btn-terceary bg-septimo text-white' onClick={() => handleDelete(id)}>Eliminar</button>
+            {state === 'true' ? <button className='btn-terceary bg-septimo text-white' onClick={() => handleDelete(id)}>Restaurar</button>
+            :<button className='btn-terceary bg-septimo text-white' onClick={() => handleDelete(id)}>Eliminar</button>}
+            
           </div>
         </div>
       </div>

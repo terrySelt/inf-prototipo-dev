@@ -16,7 +16,8 @@ export function FtForm() {
 
   const [ft, setFt] = useState({
     code: params.code,
-    date_admission: new Date().toLocaleString(),
+    //date_admission: new Date().toLocaleString(),
+    date_admission: new Date(Date.now()),
     lab: params.lab,
     brand: params.brand,
     model: params.model,
@@ -232,7 +233,9 @@ export function FtForm() {
             responsible: Yup.string().required('El responsable es requerido')
           })}
           onSubmit = { async (values,actions) => {
-            values.date_departure = new Date().toLocaleString()
+            //values.date_departure = new Date().toLocaleString()
+            values.date_departure = new Date(Date.now())
+
             if (params.id){
               await updateFt(params.id, values)
             }else {

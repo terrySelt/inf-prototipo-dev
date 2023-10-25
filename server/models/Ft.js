@@ -6,8 +6,7 @@ const ftSchema = new mongoose.Schema({
         trim: true,
     },
     date_admission:{
-        type: Date,
-        trim: true,
+        type: Date
     },
     lab: {
         type: String,
@@ -131,13 +130,16 @@ const ftSchema = new mongoose.Schema({
         type: Boolean
     },
     date_departure:{
-        type: Date,
-        trim: true,
+        type: Date
     },
     responsible: {
         type: String,
         required: true,
         trim: true
+    },
+    state: {
+        type: Boolean,
+        default: false
     }
 })
 

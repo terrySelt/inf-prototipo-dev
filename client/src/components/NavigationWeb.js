@@ -7,6 +7,7 @@ export function NavigationWeb() {
     const {user, token, getUser} = useMyContex()
 
     const [navuserweb, setNavuserweb] = useState('notshowweb')
+    const [navcomputerweb, setNavcomputerweb] = useState('notshowwebcomputer')
 
     const userconfig = () =>{
         let val = navuserweb
@@ -14,6 +15,15 @@ export function NavigationWeb() {
             setNavuserweb('nav-userweb')
         }else{
             setNavuserweb('notshowweb')
+        }
+    }
+
+    const computerconfig = () =>{
+        let val = navcomputerweb
+        if(val==="notshowwebcomputer"){
+            setNavcomputerweb('nav-computerweb')
+        }else{
+            setNavcomputerweb('notshowwebcomputer')
         }
     }
 
@@ -54,13 +64,21 @@ export function NavigationWeb() {
                 </div>
                 <div className="flex space-x-1">
                     <li className="link">
-                        <Link to='/ComputerList' className="font-semibold tracking-wider">Computadoras</Link>
+                        <Link onClick={computerconfig} className="font-semibold tracking-wider relative">Computadoras
+                            <nav className={navcomputerweb}>
+                                <ul>
+                                    <li className="mb-3">
+                                        <Link to='/ComputerList' className='text-md text-white'>Computadoras</Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/ComputerListDelete' className='text-md text-rose-500'>Computadoras eliminandas</Link>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </Link>
                     </li>
                     <li className="link">
                         <Link to='/lablist' className='font-semibold tracking-wider'>Laboratorio</Link>
-                    </li>
-                    <li className="link">
-                        <Link to='/Reportes' className='font-semibold tracking-wider'>Reportes</Link>
                     </li>
                     <li className="link">
                         <Link to='/userlist' className='font-semibold tracking-wider'>Usuarios</Link>

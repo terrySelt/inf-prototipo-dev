@@ -9,7 +9,9 @@ export const getComputersRequest = async () => await axios.get('/computers', {he
 
 export const createComputerRequest = async (computer) => await axios.post('/computers', computer, {headers:headers})
 
-export const deleteComputerRequest = async id => await axios.delete('/computers/' + id, {headers:headers})
+export const deleteComputerRequest = async (id, newstate) => await axios.put('/computers/' + id, newstate, {headers:headers})
+
+export const restoreComputerRequest = async (id, newstate) => await axios.put('/computers/' + id, newstate, {headers:headers})
 
 export const getComputerRequest = async id => await axios.get('/computers/' + id, {headers:headers})
 

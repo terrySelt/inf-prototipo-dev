@@ -126,7 +126,7 @@ export const updateComputer = async (req, res) => {
     }
 }
 
-export const deleteComputer = async (req, res) => {
+/* export const deleteComputer = async (req, res) => {
     try {
         const computerRemoved = await Computer.findByIdAndDelete(req.params.id)
         await Lab.updateOne({name:computerRemoved.lab}, { $inc: {quantity: -1} })
@@ -135,6 +135,28 @@ export const deleteComputer = async (req, res) => {
             await deleteImage(computerRemoved.image.public_id)
         }
         return res.sendStatus(204)
+    } catch (error) {
+        return res.status(500).json({message : error.message})
+    }
+} */
+
+export const deleteComputer = async (req, res) => {
+    try {
+        const computerRemoved = await Computer.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        await Lab.updateOne({name:computerRemoved.lab}, { $inc: {quantity: -1} })
+        if(!computerRemoved) return res.sendStatus(404)
+        return res.send(computerRemoved) 
+    } catch (error) {
+        return res.status(500).json({message : error.message})
+    }
+}
+
+export const restoreComputer = async (req, res) => {
+    try {
+        const computerRestore = await Computer.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        await Lab.updateOne({name:computerRestore.lab}, { $inc: {quantity: +1} })
+        if(!computerRestore) return res.sendStatus(404)
+        return res.send(computerRestore)
     } catch (error) {
         return res.status(500).json({message : error.message})
     }

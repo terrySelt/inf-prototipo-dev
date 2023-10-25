@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import { useMyContex } from "../context/prototypeContext"
 import { useEffect, useState} from 'react'
 import { RiComputerFill, RiHomeSmileFill } from 'react-icons/ri'
-import { IoDocumentText } from 'react-icons/io5';
 import { HiUserGroup } from 'react-icons/hi'
 import '../css/style.css'
 
@@ -11,12 +10,23 @@ export function Navigation() {
 
     const [navusernavigation, setNavusernavigation] = useState('notshownavigation')
 
+    const [navcomputernavigation, setNavcomputernavigation] = useState('notshownavigationcomputer')
+
     const userconfig = () =>{
         let val = navusernavigation
         if(val==="notshownavigation"){
             setNavusernavigation('nav-usernavigation')
         }else{
             setNavusernavigation('notshownavigation')
+        }
+    }
+
+    const computerconfig = () =>{
+        let val = navcomputernavigation
+        if(val==="notshownavigationcomputer"){
+            setNavcomputernavigation('nav-computernavigation')
+        }else{
+            setNavcomputernavigation('notshownavigationcomputer')
         }
     }
 
@@ -38,6 +48,16 @@ export function Navigation() {
 
   return (
     <div className="fixed bottom-0 w-full h-auto z-10 lg:hidden">
+        <nav className={navcomputernavigation}>
+            <ul>
+                <li>
+                    <Link to='/ComputerList' className='text-md text-white'>Computadoras</Link>
+                </li>
+                <li>
+                    <Link  to='/ComputerListDelete' className='text-md text-rose-500'>Computadoras eliminandas</Link>
+                </li>
+            </ul>
+        </nav>
         <nav className={navusernavigation}>
             <ul>
                 <li>
@@ -51,13 +71,10 @@ export function Navigation() {
         <nav className="p-1 bg-sky-900 w-full">
             <ul className="flex justify-around items-center text-white tpn font-semibold">
                 <li>
-                    <Link to='/ComputerList' className='flex flex-col justify-center items-center'>< RiComputerFill className="w-6 h-6"/><p>Computadoras</p></Link>
+                    <Link onClick={computerconfig} className='flex flex-col justify-center items-center'>< RiComputerFill className="w-6 h-6"/><p>Computadoras</p></Link>
                 </li>
                 <li>
                     <Link to='/lablist' className='flex flex-col justify-center items-center'>< RiHomeSmileFill className="w-6 h-6"/><p>Laboratorios</p></Link>
-                </li>
-                <li>
-                    <Link to='/Reportes' className='flex flex-col justify-center items-center'>< IoDocumentText className="w-6 h-6"/><p>Reportes</p></Link>
                 </li>
                 <li>
                     <Link to='/userlist' className='flex flex-col justify-center items-center'>< HiUserGroup className="w-6 h-6"/><p>Usuarios</p></Link>

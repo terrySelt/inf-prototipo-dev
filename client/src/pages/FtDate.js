@@ -6,21 +6,43 @@ import { NavigationWeb } from '../components/NavigationWeb'
 
 export function FtDate() {
 
-    const {deleteFt} = useMyContex()
+    const {deleteFt, restoreFt} = useMyContex()
     const navigate = useNavigate()
     const params = useParams()
 
     const id = params.id
+
+    let state = params.state
+    
+    let newstate = {}
+    if(state === 'false'){
+      newstate = {
+        state: true
+      }
+    }else{
+      newstate = {
+        state: false
+      }
+    }
+
     const handleDelete = (id) => {
       toast((t) => (
         <div>
-          <p className='text-white'>Seguro quieres eliminar la ficha técnica? <strong>{id}</strong> </p>
+          {state === 'false' ? <p className='text-white'>Seguro quieres eliminar la ficha técnica? <strong>{id}</strong> </p>:
+          <p className='text-white'>Seguro quieres restaurar la ficha técnica? <strong>{id}</strong> </p>
+          }
           <div className='w-full flex justify-around pt-2'>
-            <button className='btn-terceary bg-septimo text-white' onClick={() => {
-              deleteFt(id)
+            {state === 'false' ? <button className='btn-terceary bg-septimo text-white' onClick={() => {
+              deleteFt(id, newstate)
               toast.dismiss(t.id)
               navigate('/computerlist')
-              }}>Eliminar</button>
+              }}>Eliminar</button>:
+            <button className='btn-terceary bg-septimo text-white' onClick={() => {
+              restoreFt(id, newstate)
+              toast.dismiss(t.id)
+              navigate('/computerlist')
+              }}>Restaurar</button>
+              }
             <button className='btn-terceary text-octavo bg-white' onClick={() => toast.dismiss(t.id)}>Cancelar</button>
           </div>
         </div>
@@ -194,7 +216,9 @@ export function FtDate() {
             </div>
             <div className='w-full flex justify-around mt-3'>
               <button className='btn-terceary bg-terceary text-octavo border-2 border-octavo' onClick={() => navigate(`/Fts/${id}`)}>Actualizar</button>
-              <button className='btn-terceary bg-septimo text-white' onClick={() => handleDelete(id)}>Eliminar</button>
+              {state === 'false' ? <button className='btn-terceary bg-septimo text-white' onClick={() => handleDelete(id)}>Eliminar</button>:
+              <button className='btn-terceary bg-septimo text-white' onClick={() => handleDelete(id)}>Resturar</button>
+              }
             </div>
           </div>
         </div>

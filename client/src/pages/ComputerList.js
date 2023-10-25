@@ -13,7 +13,9 @@ export function ComputerList() {
 
     const codescann = params.code
 
-    if(computers.length === 0) return(
+    const compnotdelete = computers.filter(item => item.state === false)
+
+    if(compnotdelete.length === 0) return(
       <div className="not-computers">
         <NavigationWeb />
         <Navigation />
@@ -25,13 +27,13 @@ export function ComputerList() {
     let results = []
 
     if(!code){
-      results = computers
+      results = compnotdelete
     }else{
-          results = computers.filter(item => item.code.toString().toLowerCase().includes(code.toLowerCase()))
+          results = compnotdelete.filter(item => item.code.toString().toLowerCase().includes(code.toLowerCase()))
     }
     let res = []
     if(codescann){
-      const res2 = computers.find(item => item.code === codescann)
+      const res2 = compnotdelete.find(item => item.code === codescann)
       res.push(res2)
       results = res
     }

@@ -9,7 +9,9 @@ export const getFtsRequest = async () => await axios.get('/fts', {headers:header
 
 export const createFtRequest = async (ft) => await axios.post('/fts', ft, {headers:headers})
 
-export const deleteFtRequest = async id => await axios.delete('/fts/' +id, {headers:headers})
+export const deleteFtlogicalRequest = async (id, state) => await axios.put('/fts/' +id, state, {headers:headers})
+
+export const restoreFtlogicalRequest = async (id, state) => await axios.put('/fts/' +id, state, {headers:headers})
 
 export const getFtRequest = async id => await axios.get('/fts/' +id, {headers:headers}) 
 

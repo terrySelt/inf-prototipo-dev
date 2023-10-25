@@ -3,7 +3,8 @@ import {Link, useNavigate, useParams} from 'react-router-dom'
 import {Navigation} from '../components/Navigation'
 import { NavigationWeb } from '../components/NavigationWeb'
 
-export function FtList() {
+export function FtListDelete() {
+
     const { fts} = useMyContex()
     const navigate = useNavigate()
     const params = useParams()
@@ -11,8 +12,8 @@ export function FtList() {
     const code = params.code
 
     const existe = fts.filter( el => el.code === code )
-    
-    const ftdelete = existe.filter(item => item.state === false)
+
+    const ftdelete = existe.filter(item => item.state === true)
 
     if(ftdelete.length === 0) return (
         <div className="bg-primary w-full h-screen flex flex-col justify-start items-center">
@@ -29,7 +30,7 @@ export function FtList() {
         </div>
     )
 
-   return (
+  return (
     <div className='bg-primary w-full h-screen flex flex-col justify-start items-center'>
         <NavigationWeb />
         <Navigation />
@@ -46,5 +47,5 @@ export function FtList() {
             </div>
         </div>
     </div>
-  ) 
+  )
 }
