@@ -6,9 +6,9 @@ const router = Router()
 
 router.get('/fts', [verifyToken, user], getFts)
 router.post('/fts', [verifyToken, user], createFt)
-router.put('/fts/:id', [verifyToken, user], updateFt)
-router.put('/fts/:id', [verifyToken, user], deleteFtLogical)
-router.put('/fts/:id', [verifyToken, user], restoreFtLogical)
+router.put('/fts/update/:id', [verifyToken, user], updateFt)
+router.put('/fts/delete/:id', [verifyToken, user], deleteFtLogical)
+router.put('/fts/restore/:id', [verifyToken, user], restoreFtLogical)
 router.get('/fts/:id', [verifyToken, user], getFt)
 
 router.post('/ftsrepo', [verifyToken, user], getReportes)

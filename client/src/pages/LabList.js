@@ -9,10 +9,14 @@ export function LabList() {
     const { labs } = useMyContex()
 
     if(labs.length === 0) return (
-        <div className="not-labs">
+        <div className="bg-primary w-full h-screen flex flex-col justify-start items-center">
+            <Head />
+            <NavigationWeb />
             <Navigation />
-            <h1>No hay laboratorios</h1>
-            <Link className="btn-new-lab" to="/LabForm">Nuevo Laboratorio</Link>
+            <div className='w-full h-screen flex flex-col justify-around items-center'>
+                <h1 className='text-white font-bold text-xl'>No hay laboratorios</h1>
+                <Link className="btn-primary-new" to="/LabForm">Nuevo Laboratorio</Link>
+            </div>
         </div>
     )
 

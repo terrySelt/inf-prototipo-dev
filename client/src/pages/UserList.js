@@ -10,10 +10,14 @@ export function UserList() {
   const { users } = useMyContex()
 
   if(users.length === 0) return(
-    <div className="not-users">
+    <div className="bg-primary w-full h-screen flex flex-col justify-start items-center">
+      <Head />
+      <NavigationWeb />
       <Navigation />
-      <h1>No hay ususarios</h1>
-      <Link className="btn-new-user" to="/UserForm">Nuevo usuario</Link>
+      <div className='w-full h-screen flex flex-col justify-around items-center'>
+        <h1 className='text-white font-bold text-xl'>No hay ususarios</h1>
+        <Link className="btn-primary-new" to="/UserForm">Nuevo usuario</Link>
+      </div>
     </div>
   )
 

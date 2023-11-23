@@ -25,7 +25,7 @@ export function FtListDelete() {
               <p onClick={() => navigate(`/FtList/${code}`)} className='text-white font-bold tracking-wider'>Fichas técnicas</p>
               <button onClick={() => navigate(`/FtListDelete/${code}`)} className='btn-eliminated text-rose-500 border-2 border-rose-500 px-2 tracking-wider'>Eliminadas</button>
             </div>
-            <h1 className='text-white font-bold tracking-wider mt-2'>No hay Fichas técnicas</h1>
+            <h1 className='text-red-500 font-bold tracking-wider mt-2'>No hay Fichas técnicas eliminadas</h1>
           </div>
         </div>
     )

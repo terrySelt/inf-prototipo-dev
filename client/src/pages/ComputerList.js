@@ -16,11 +16,14 @@ export function ComputerList() {
     const compnotdelete = computers.filter(item => item.state === false)
 
     if(compnotdelete.length === 0) return(
-      <div className="not-computers">
+      <div className="bg-primary w-full h-screen flex flex-col justify-start items-center">
+        <Head />
         <NavigationWeb />
         <Navigation />
-        <h1>No hay computadoras</h1>
-        <Link className="btn-new-computer" to="/ComputerForm">Nueva Computadora</Link>
+        <div className='w-full h-screen flex flex-col justify-around items-center'>
+          <h1 className='text-white font-bold text-xl'>No hay computadoras</h1>
+          <Link className="btn-primary-new" to="/ComputerForm">Nueva Computadora</Link>
+        </div>
       </div>
     )
 
